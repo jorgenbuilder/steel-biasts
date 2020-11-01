@@ -1,0 +1,14 @@
+{
+  "name": "steel-biasts",
+  "version": "0.0.0",
+  "description": "A 2D platform RPG for the web.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jorgen Hookham",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^0.12.3"
+  }
+}
