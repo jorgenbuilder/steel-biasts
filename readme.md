@@ -3,5 +3,5 @@
 ## Getting Started
 
 1. `npm i`
-2. `npm run serve`
-3. http://localhost:8001
+2. `npm start`
+3. http://localhost:8080
