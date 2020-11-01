@@ -1,5 +1,5 @@
-import Phaser from 'phaser';
 import Game from './game';
+import './screen.css'
 
 declare global {
     interface Window {
