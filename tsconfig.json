@@ -3,10 +3,10 @@
         "module": "CommonJS",
         "noImplicitAny": true,
         "sourceMap": true,
-        "outDir": "./app/dist",
+        "outDir": "./dist",
         "esModuleInterop": true,
         "target": "es5"
     },
-    "include": ["./app/src/**/*"],
-    "exclude": ["node_modules", "./app/**/*/spec.ts"]
+    "include": ["./src/**/*"],
+    "exclude": ["node_modules", "./src/**/*/spec.ts"]
 }

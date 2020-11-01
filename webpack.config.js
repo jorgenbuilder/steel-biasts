@@ -1,8 +1,23 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: './app/src/index.ts',
+    mode: 'development',
+    entry: {
+        game: './src/index.ts'
+    },
+    plugins: [
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            title: 'Steel Biasts'
+        }),
+    ],
     devtool: 'inline-source-map',
+    devServer: {
+        contentBase: './dist',
+        hot: true,
+    },
     module: {
         rules: [
             {
@@ -16,7 +31,7 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js'],
     },
     output: {
-        filename: 'gameBundle.js',
-        path: path.resolve(__dirname, 'app/dist'),
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, 'dist'),
     }
 };
