@@ -2,13 +2,25 @@
   "name": "steel-biasts",
   "version": "0.0.0",
   "description": "A 2D platform RPG for the web.",
-  "main": "index.js",
+  "main": "app/dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && webpack",
+    "serve": "npm run build && node ./app/dist/server.js"
   },
   "author": "Jorgen Hookham",
   "license": "ISC",
   "dependencies": {
-    "http-server": "^0.12.3"
+    "phaser": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/http-server": "^0.10.1",
+    "@types/node": "^14.14.6",
+    "http-server": "^0.12.3",
+    "ts-loader": "^8.0.7",
+    "tslint": "^6.1.3",
+    "typescript": "^4.0.5",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^4.1.0"
   }
 }
