@@ -3,7 +3,7 @@ import Player from '../../sprites/Player';
 import playerAnimations from '../../animations/Player';
 import LevelTiles from '../../assets/tilesets/szadi-caves/level-tiles.png';
 import Dwarf from '../../assets/dwarf.png';
-import Map from '../../assets/tilemaps/world.json';
+import Map from '../../assets/tilemaps/tavern.json';
 
 export default class TavernScene extends Phaser.Scene {
 
