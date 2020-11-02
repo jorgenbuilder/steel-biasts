@@ -1,4 +1,4 @@
-export default function playerAnimations (scene: Phaser.Scene) {
+export default function (scene: Phaser.Scene) {
     scene.anims.create({
         key: 'walkright',
         frames: scene.anims.generateFrameNumbers('dwarf', { start: 0, end: 7}),

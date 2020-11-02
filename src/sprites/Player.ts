@@ -5,6 +5,7 @@ export default class Player extends Sprite {
 
     private direction: 'right' | 'left' = 'right';
     private standing () { return `stand${this.direction}`; }
+    private keys: Phaser.Types.Input.Keyboard.CursorKeys;
     
     constructor (
         scene: Phaser.Scene,
@@ -16,7 +17,7 @@ export default class Player extends Sprite {
         super(scene, x, y, texture, frame);
 
         // Default animation state
-        this.anims.play(this.standing())
+        this.anims.play(this.standing());
 
         // Put player in the gameworld
         scene.physics.world.enable(this);
@@ -24,23 +25,30 @@ export default class Player extends Sprite {
     }
 
     update () {
-        const cursors = this.scene.input.keyboard.createCursorKeys();
-        if (cursors.left.isDown) {
-            this.setVelocityX(-160);
+        const keys = this.scene.input.keyboard.createCursorKeys();
+        const speed = 500;
+        if (keys.left.isDown) {
+            this.setVelocityX(-speed);
             this.direction = 'left';
-            this.anims.play('left', true);
+            this.anims.play('walkleft', true);
         }
-        else if (cursors.right.isDown) {
-            this.setVelocityX(160);
+        else if (keys.right.isDown) {
+            this.setVelocityX(speed);
             this.direction = 'right';
-            this.anims.play('right', true);
+            this.anims.play('walkright', true);
         } else {
             this.setVelocityX(0);
             this.anims.play(`stand${this.direction}`, true);
         }
 
-        if (cursors.up.isDown && this.body.touching.down) {
-            this.setVelocityY(-330);
+        if (keys.up.isDown && this.body.blocked.down) {
+            // console.log(
+            //     this.body.touching.down,
+            //     this.body.collideWorldBounds,
+            //     this.body.touching.down,
+            //     this.body,
+            // );
+            this.setVelocityY(-700);
             this.anims.play(`stand${this.direction}`);
         }
     }

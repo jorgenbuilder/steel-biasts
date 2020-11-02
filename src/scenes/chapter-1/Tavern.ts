@@ -1,54 +1,63 @@
 import Phaser from 'phaser';
 import Player from '../../sprites/Player';
 import playerAnimations from '../../animations/Player';
-import Blackdrop from '../../assets/backdrops/blackdrop.png';
-import Ground from '../../assets/ground.png';
+import LevelTiles from '../../assets/tilesets/szadi-caves/level-tiles.png';
 import Dwarf from '../../assets/dwarf.png';
+import Map from '../../assets/tilemaps/world.json';
 
 export default class TavernScene extends Phaser.Scene {
 
     private player: Player;
+    private map: Phaser.Tilemaps.Tilemap;
+    private levelTiles: Phaser.Tilemaps.Tileset;
+    private groundLayer: Phaser.Tilemaps.StaticTilemapLayer;
 
     constructor (conf: Phaser.Types.Scenes.SettingsConfig) {
         super(conf);
     }
 
-    // private player {
-    //     body: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
-    // }
-
     preload () {
         this.load.on('complete', () => {
             playerAnimations(this);
         });
-        this.load.image('blackdrop', Blackdrop);
-        this.load.image('ground', Ground);
         this.load.spritesheet('dwarf', Dwarf, {
             frameWidth: 180,
             frameHeight: 240
         });
+        this.load.tilemapTiledJSON('map', Map);
+        this.load.image('level-tiles', LevelTiles);
     }
 
     create () {
-        // Backdrop
-        this.add.image(2560 / 2, 1440 / 2, 'blackdrop');
-
-        // Platforms
-        const platforms = this.physics.add.staticGroup();
-        platforms.create(2560 / 2, 1440, 'ground').setScale(10).refreshBody();
+        const height = this.sys.game.config.height as number;
+        const width = this.sys.game.config.width as number;
+    
+        // Map
+        this.map = this.make.tilemap({ key: 'map', tileWidth: 16, tileHeight: 16, });
+        this.levelTiles = this.map.addTilesetImage('level-tiles')
+        this.groundLayer = this.map.createStaticLayer(
+            'floor',
+            this.levelTiles,
+            width / 2 - width,
+            height / 2,
+        );
+        this.groundLayer.setScale(2.5);
+        this.map.setCollisionBetween(700, 1600)
 
         // Player
         this.player = new Player(
             this,
             0,
-            this.sys.game.config.height as number - 500,
+            height + 560,
             'dwarf'
         );
-
-        // Set bounds for current room
-        // this.player.setRoomBounds(this.rooms);
+        this.physics.world.addCollider(this.player, this.groundLayer)
 
         // Follow player
         this.cameras.main.startFollow(this.player);
+    }
+
+    update () {
+        this.player.update();
     }
 }
