@@ -1,13 +1,12 @@
-import Game from './game';
+import game from './game';
 import './screen.css'
 
 declare global {
     interface Window {
-        game: Game;
+        game: Phaser.Game;
     }
 };
 
-const game = new Game();
 window.game = game;
 
 if (module.hot) {
