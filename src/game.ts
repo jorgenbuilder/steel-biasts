@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
-import TavernScene from './scenes/chapter-1/Tavern';
+import TavernScene from 'scenes/chapter-1/Tavern';
+import DevHUD from 'scenes/DevHUD';
 
 const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
@@ -17,7 +18,7 @@ const config: Phaser.Types.Core.GameConfig = {
             debug: false,
         },
     },
-    scene: TavernScene,
+    scene: [TavernScene, DevHUD],
 };
 
 const game = new Phaser.Game(config);

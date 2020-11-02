@@ -3,6 +3,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     private direction: 'right' | 'left' = 'right';
     private standing () { return `stand${this.direction}`; }
     private keys: Phaser.Types.Input.Keyboard.CursorKeys;
+
+    public teleporting: boolean = false;
+    public invulnerable: boolean = false;
     
     constructor (
         scene: Phaser.Scene,
@@ -39,15 +42,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
         if (keys.up.isDown && this.body.blocked.down) {
-            // console.log(
-            //     this.body.touching.down,
-            //     this.body.collideWorldBounds,
-            //     this.body.touching.down,
-            //     this.body,
-            // );
             this.setVelocityY(-700);
             this.anims.play(`stand${this.direction}`);
         }
+    }
+
+    canTeleport (): boolean {
+        return !this.teleporting;
     }
 
 }

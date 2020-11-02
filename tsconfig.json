@@ -5,8 +5,16 @@
         "sourceMap": true,
         "outDir": "./dist",
         "esModuleInterop": true,
-        "target": "es5"
+        "target": "es5",
+        "baseUrl": "./",
+        "paths": {
+            "animations/*": ["src/animations/*"],
+            "assets/*": ["src/assets/*"],
+            "scenes/*": ["src/scenes/*"],
+            "sprites/*": ["src/sprites/*"],
+            "utils/*": ["src/utils/*"]
+        }
     },
-    "include": ["./src/**/*"],
-    "exclude": ["node_modules", "./src/**/*/spec.ts"]
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "src/**/*/spec.ts", "dist"]
 }

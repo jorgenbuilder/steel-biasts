@@ -18,6 +18,7 @@ module.exports = {
                 test: /\.tsx?$/,
                 use: 'ts-loader',
                 exclude: /node_modules/,
+                include: [path.resolve(__dirname, './src'),],
             },
             {
                 test: /\.css$/,
@@ -36,6 +37,13 @@ module.exports = {
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.css', '.scss', '.json'],
+        alias: {
+            animations: path.resolve(__dirname, 'src/animations/'),
+            assets: path.resolve(__dirname, 'src/assets/'),
+            scenes: path.resolve(__dirname, 'src/scenes/'),
+            sprites: path.resolve(__dirname, 'src/sprites/'),
+            utils: path.resolve(__dirname, 'src/utils/'),
+        }
     },
     output: {
         filename: '[name].bundle.js',
