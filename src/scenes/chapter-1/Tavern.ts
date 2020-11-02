@@ -1,4 +1,3 @@
-import Phaser from 'phaser';
 import Player from '../../sprites/Player';
 import playerAnimations from '../../animations/Player';
 import LevelTiles from '../../assets/tilesets/szadi-caves/level-tiles.png';

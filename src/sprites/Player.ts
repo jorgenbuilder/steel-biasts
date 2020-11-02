@@ -1,7 +1,4 @@
-import Phaser from 'phaser';
-import Sprite from './Sprite';
-
-export default class Player extends Sprite {
+export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     private direction: 'right' | 'left' = 'right';
     private standing () { return `stand${this.direction}`; }

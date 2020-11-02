@@ -1,5 +1,3 @@
-import Phaser from 'phaser';
-
 export default abstract class Sprite extends Phaser.Physics.Arcade.Sprite {
     
     constructor (
