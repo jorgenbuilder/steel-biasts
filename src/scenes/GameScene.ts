@@ -97,6 +97,8 @@ export default abstract class GameScene extends Phaser.Scene {
                 0, 0,
             );
             this.mapTileLayers[conf.accessor].setScale(this.mapScale);
+            // TODO, add layer depth to each
+            // this.mapTileLayers[conf.accessor].setDepth(10);
         }
         console.log(this.mapTileLayers);
 

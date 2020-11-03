@@ -19,6 +19,18 @@ export default class TavernScene extends GameScene {
 
     preloadHook () {}
 
-    createHook () {}
+    createHook () {
+        console.log(
+            this.map.getTileLayerNames(),
+            this.map.getLayerIndex('background'),
+            this.map.getLayerIndex('floor'),
+            this.map.getLayerIndex('foreground'),
+            this.map.getLayerIndex('cameraBounds'),
+            this.map.getLayer('background'),
+            this.map.getLayer('floor'),
+            this.map.getLayer('foreground'),
+            this.map.getLayer('cameraBounds'),
+        )
+    }
     
 }
