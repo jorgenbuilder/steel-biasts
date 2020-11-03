@@ -1,35 +1,51 @@
-import LevelTiles from 'assets/tilesets/szadi-caves/level-tiles.png';
-import BG1Tiles from 'assets/tilesets/szadi-caves/bg-1.png';
-import BG2Tiles from 'assets/tilesets/szadi-caves/bg-2.png';
-import BG3Tiles from 'assets/tilesets/szadi-caves/bg-3.png';
-import BG4Tiles from 'assets/tilesets/szadi-caves/bg-4.png';
-import BG5Tiles from 'assets/tilesets/szadi-caves/bg-5.png';
-import PropsTiles from 'assets/tilesets/szadi-caves/props-1.png';
-import UtilTiles from 'assets/tilesets/utils/util-colors.png';
+import LevelTiles from 'assets/tilesets/szadi-caves/level.png';
+import BG1Tiles from 'assets/tilesets/szadi-caves/bg1.png';
+import BG2Tiles from 'assets/tilesets/szadi-caves/bg2.png';
+import BG3Tiles from 'assets/tilesets/szadi-caves/bg3.png';
+import BG4Tiles from 'assets/tilesets/szadi-caves/bg4.png';
+import BG5Tiles from 'assets/tilesets/szadi-caves/bg5.png';
+import PropsTiles from 'assets/tilesets/szadi-caves/props2.png';
+import UtilTiles from 'assets/tilesets/utils/util.png';
 import Map from 'assets/tilemaps/tavern-way.json';
-import GameScene from 'scenes/GameScene';
+import GameLevelScene from 'scenes/GameLevelScene';
 
-export default class TavernWayScene extends GameScene {
+export default class TavernWayScene extends GameLevelScene {
 
-    protected mapAsset = Map;
+    protected mapConf = {
+        asset: Map,
+        key: 'tavernWayMap',
+    }
     protected tileAssets = [
-        { key: 'level-tiles',   accessor: 'level',  asset: LevelTiles,},
-        { key: 'util-tiles',    accessor: 'util',   asset: UtilTiles, },
-        { key: 'bg-1',          accessor: 'bg1',    asset: BG1Tiles, },
-        { key: 'bg-2',          accessor: 'bg2',    asset: BG2Tiles, },
-        { key: 'bg-3',          accessor: 'bg3',    asset: BG3Tiles, },
-        { key: 'bg-4',          accessor: 'bg4',    asset: BG4Tiles, },
-        { key: 'bg-5',          accessor: 'bg5',    asset: BG5Tiles, },
-        { key: 'props-1',       accessor: 'props',  asset: PropsTiles, },
+        { key: 'level', asset: LevelTiles,},
+        { key: 'util',  asset: UtilTiles, },
+        { key: 'bg1',   asset: BG1Tiles, },
+        { key: 'bg2',   asset: BG2Tiles, },
+        { key: 'bg3',   asset: BG3Tiles, },
+        { key: 'bg4',   asset: BG4Tiles, },
+        { key: 'bg5',   asset: BG5Tiles, },
+        { key: 'props2',asset: PropsTiles, },
     ];
     protected mapTileLayersConf = [
-        {accessor: 'floor',         tileSet: 'level', visible: true,    depth: 5,},
-        {accessor: 'foreground',    tileSet: 'level', visible: true,    depth: 15,},
-        {accessor: 'cameraBounds',  tileSet: 'level', visible: false,   depth: 100,},
+        // {key: 'bg1',            tileSet: 'bg1',     visible: true,    depth: 1,},
+        // {key: 'bg2',            tileSet: 'bg2',     visible: true,    depth: 2,},
+        // {key: 'bg3',            tileSet: 'bg3',     visible: true,    depth: 3,},
+        // {key: 'bg4',            tileSet: 'bg4',     visible: true,    depth: 4,},
+        {key: 'floor',          tileSet: 'level',   visible: true,    depth: 5,},
+        // {key: 'foreground',     tileSet: 'props2',  visible: true,    depth: 15,},
+        // {key: 'groundClutter',  tileSet: 'level',   visible: true,    depth: 11,},
+        {key: 'cameraBounds',   tileSet: 'util',    visible: false,   depth: 100,},
     ]
+    protected spawnAt = 'tavern';
+
+    constructor () {
+        super('TavernWayScene');
+    }
         
     preloadHook () {}
 
-    createHook () {}
+    createHook () {
+        this.map.setCollisionBetween(130, 130, true, true, 15);
+        this.physics.world.addCollider(this.player, this.mapTileLayers.floor);
+    }
     
 }

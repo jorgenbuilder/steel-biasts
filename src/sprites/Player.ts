@@ -5,7 +5,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     private keys: Phaser.Types.Input.Keyboard.CursorKeys;
 
     public teleporting: boolean = false;
+    public spawning: boolean = true;
     public invulnerable: boolean = false;
+
+    public originX = 0;
+    public originY = 1;
     
     constructor (
         scene: Phaser.Scene,
@@ -48,7 +52,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     canTeleport (): boolean {
-        return !this.teleporting;
+        return !this.teleporting && !this.spawning;
     }
 
 }

@@ -5,7 +5,13 @@ export function getObjectCustomProps<T> (data: Phaser.Data.DataManager): T {
 }
 
 export interface PortalData {
+    Name: string;
     Destination: string;
     OnTouch: boolean;
     Portal: boolean;
+};
+
+export interface SpawnData {
+    Name: string;
+    Spawn: boolean;
 };

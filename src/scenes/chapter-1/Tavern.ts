@@ -1,36 +1,36 @@
-import LevelTiles from 'assets/tilesets/szadi-caves/level-tiles.png';
-import UtilTiles from 'assets/tilesets/utils/util-colors.png';
+import LevelTiles from 'assets/tilesets/szadi-caves/level.png';
+import UtilTiles from 'assets/tilesets/utils/util.png';
 import Map from 'assets/tilemaps/tavern.json';
-import GameScene from 'scenes/GameScene';
+import GameLevelScene from 'scenes/GameLevelScene';
 
-export default class TavernScene extends GameScene {
+export default class TavernScene extends GameLevelScene {
 
-    protected mapAsset = Map;
+    protected mapConf = {
+        asset: Map,
+        key: 'tavernMap',
+    }
     protected tileAssets = [
-        { key: 'level-tiles',   accessor: 'level',  asset: LevelTiles,},
-        { key: 'util-tiles',    accessor: 'util',   asset: UtilTiles, },
+        { key: 'level', asset: LevelTiles,},
+        { key: 'util',  asset: UtilTiles, },
     ];
     protected mapTileLayersConf = [
-        {accessor: 'background',    tileSet: 'level', visible: true,    depth: 1,},
-        {accessor: 'floor',         tileSet: 'level', visible: true,    depth: 5,},
-        {accessor: 'foreground',    tileSet: 'level', visible: true,    depth: 15,},
-        {accessor: 'cameraBounds',  tileSet: 'level', visible: false,   depth: 100,},
+        {key: 'background',    tileSet: 'level', visible: true,    depth: 1,},
+        {key: 'floor',         tileSet: 'level', visible: true,    depth: 5,},
+        {key: 'foreground',    tileSet: 'level', visible: true,    depth: 15,},
+        {key: 'cameraBounds',  tileSet: 'util', visible: false,   depth: 100,},
     ]
+
+    protected spawnAt = 'tavern-way';
+
+    constructor () {
+        super('TavernScene');
+    }
 
     preloadHook () {}
 
     createHook () {
-        console.log(
-            this.map.getTileLayerNames(),
-            this.map.getLayerIndex('background'),
-            this.map.getLayerIndex('floor'),
-            this.map.getLayerIndex('foreground'),
-            this.map.getLayerIndex('cameraBounds'),
-            this.map.getLayer('background'),
-            this.map.getLayer('floor'),
-            this.map.getLayer('foreground'),
-            this.map.getLayer('cameraBounds'),
-        );
+        this.map.setCollisionBetween(0, 10000, true, true, 1);
+        this.physics.world.addCollider(this.player, this.mapTileLayers.floor);
     }
     
 }
