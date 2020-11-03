@@ -1,4 +1,4 @@
-interface DevData {
+export interface DevData {
     pX: number;
     pY: number;
     pSpawning: boolean;
@@ -30,7 +30,7 @@ export default class DevHUD extends Phaser.Scene {
 
     playerText(): string {
         return `
-        Player Coords: ${this.pX}, ${this.pY}
+        Player Coords: ${Math.floor(this.pX)}, ${Math.floor(this.pY)}
         Player Spawning: ${this.pSpawning}
         `
     }
