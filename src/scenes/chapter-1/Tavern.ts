@@ -11,10 +11,10 @@ export default class TavernScene extends GameScene {
         { key: 'util-tiles',    accessor: 'util',   asset: UtilTiles, },
     ];
     protected mapTileLayersConf = [
-        {accessor: 'background', tileSet: this.tileSets.level, visible: true},
-        {accessor: 'floor', tileSet: this.tileSets.level, visible: true},
-        {accessor: 'foreground', tileSet: this.tileSets.level, visible: true},
-        {accessor: 'cameraBounds', tileSet: this.tileSets.level, visible: false},
+        {accessor: 'background',    tileSet: 'level', visible: true,    depth: 1,},
+        {accessor: 'floor',         tileSet: 'level', visible: true,    depth: 5,},
+        {accessor: 'foreground',    tileSet: 'level', visible: true,    depth: 15,},
+        {accessor: 'cameraBounds',  tileSet: 'level', visible: false,   depth: 100,},
     ]
 
     preloadHook () {}
@@ -30,7 +30,7 @@ export default class TavernScene extends GameScene {
             this.map.getLayer('floor'),
             this.map.getLayer('foreground'),
             this.map.getLayer('cameraBounds'),
-        )
+        );
     }
     
 }

@@ -34,8 +34,9 @@ export default abstract class GameScene extends Phaser.Scene {
     } = {};
     protected mapTileLayersConf: {
         accessor: string;
-        tileSet: Phaser.Tilemaps.Tileset;
+        tileSet: string;
         visible: boolean;
+        depth: number;
     }[];
 
 
@@ -82,6 +83,7 @@ export default abstract class GameScene extends Phaser.Scene {
             1200,
             'dwarf'
         );
+        this.player.setDepth(10);
     
         // Add tile sets
         for (const conf of this.tileAssets) {
@@ -93,12 +95,11 @@ export default abstract class GameScene extends Phaser.Scene {
         for (const conf of this.mapTileLayersConf) {
             this.mapTileLayers[conf.accessor] = this.map.createStaticLayer(
                 conf.accessor, 
-                conf.tileSet,
+                this.tileSets[conf.tileSet],
                 0, 0,
             );
             this.mapTileLayers[conf.accessor].setScale(this.mapScale);
-            // TODO, add layer depth to each
-            // this.mapTileLayers[conf.accessor].setDepth(10);
+            this.mapTileLayers[conf.accessor].setDepth(conf.depth);
         }
         console.log(this.mapTileLayers);
 
@@ -137,6 +138,7 @@ export default abstract class GameScene extends Phaser.Scene {
             p.setDisplaySize(p.displayWidth * this.mapScale, p.displayHeight * this.mapScale);
             p.x = p.x * this.mapScale;
             p.y = p.y * this.mapScale;
+            p.setDepth(100);
         });
 
         // Hook for scene-specific initialization logic

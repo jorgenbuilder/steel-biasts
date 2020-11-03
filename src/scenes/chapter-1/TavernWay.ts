@@ -23,9 +23,9 @@ export default class TavernWayScene extends GameScene {
         { key: 'props-1',       accessor: 'props',  asset: PropsTiles, },
     ];
     protected mapTileLayersConf = [
-        {accessor: 'floor', tileSet: this.tileSets.level, visible: true},
-        {accessor: 'foreground', tileSet: this.tileSets.level, visible: true},
-        {accessor: 'cameraBounds', tileSet: this.tileSets.level, visible: false},
+        {accessor: 'floor',         tileSet: 'level', visible: true,    depth: 5,},
+        {accessor: 'foreground',    tileSet: 'level', visible: true,    depth: 15,},
+        {accessor: 'cameraBounds',  tileSet: 'level', visible: false,   depth: 100,},
     ]
         
     preloadHook () {}
