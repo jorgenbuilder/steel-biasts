@@ -26,10 +26,10 @@ export default class TavernWayScene extends GameLevelScene {
         { key: 'props2',asset: PropsTiles, },
     ];
     protected mapTileLayersConf = [
-        // {key: 'bg1',            tileSet: 'bg1',     visible: true,    depth: 1,},
-        // {key: 'bg2',            tileSet: 'bg2',     visible: true,    depth: 2,},
-        // {key: 'bg3',            tileSet: 'bg3',     visible: true,    depth: 3,},
-        // {key: 'bg4',            tileSet: 'bg4',     visible: true,    depth: 4,},
+        {key: 'bg1',            tileSet: 'bg1',     visible: true,    depth: 1,},
+        {key: 'bg2',            tileSet: 'bg2',     visible: true,    depth: 2,},
+        {key: 'bg3',            tileSet: 'bg3',     visible: true,    depth: 3,},
+        {key: 'bg4',            tileSet: 'bg4',     visible: true,    depth: 4,},
         {key: 'floor',          tileSet: 'level',   visible: true,    depth: 5,},
         // {key: 'foreground',     tileSet: 'props2',  visible: true,    depth: 15,},
         // {key: 'groundClutter',  tileSet: 'level',   visible: true,    depth: 11,},

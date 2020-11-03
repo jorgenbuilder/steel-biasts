@@ -41,7 +41,7 @@
          "objects":[
                 {
                  "gid":4098,
-                 "height":288,
+                 "height":111.75,
                  "id":12,
                  "name":"portal",
                  "properties":[
@@ -69,8 +69,8 @@
                  "type":"Portal",
                  "visible":true,
                  "width":64,
-                 "x":1728,
-                 "y":560
+                 "x":1727.875,
+                 "y":527.875
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -98,7 +98,7 @@
                  "visible":true,
                  "width":63.3333333333333,
                  "x":1728.33333333333,
-                 "y":543
+                 "y":544.375
                 }],
          "opacity":1,
          "type":"objectgroup",

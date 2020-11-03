@@ -20,6 +20,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     ) {
         super(scene, x, y, texture, frame);
 
+        this.setScale(1 / 2.5)
         // Default animation state
         this.anims.play(this.standing());
 

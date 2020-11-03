@@ -110,7 +110,7 @@ export default abstract class GameScene extends Phaser.Scene {
                 0, 0,
             );
             this.mapTileLayers[conf.key].setDisplayOrigin(0, 1);
-            this.mapTileLayers[conf.key].setScale(this.mapScale);
+            // this.mapTileLayers[conf.key].setScale(this.mapScale);
             this.mapTileLayers[conf.key].setDepth(conf.depth);
             const ok = this.mapTileLayers[conf.key] ? true : false;
             console.debug(`\t${i}/${this.mapTileLayersConf.length}: ${conf.key}, ${ok ? 'Okay' : 'Oops!'}`)
@@ -129,9 +129,10 @@ export default abstract class GameScene extends Phaser.Scene {
             i = 1;
             this.mapObjectLayers.portals.forEach(p => {
                 const data = getObjectCustomProps<PortalData>(p.data);
-                p.setDisplaySize(p.displayWidth * this.mapScale, p.displayHeight * this.mapScale);
-                p.x = p.x * this.mapScale;
-                p.y = p.y * this.mapScale;
+                p.setDisplayOrigin(0, 0);
+                // p.setDisplaySize(p.displayWidth * this.mapScale, p.displayHeight * this.mapScale);
+                // p.x = p.x * this.mapScale;
+                // p.y = p.y * this.mapScale;
                 p.setDepth(100);
                 p.name = data.Name;
                 console.debug(`\t${i}/${this.mapObjectLayers.portals.length}: ${p.name}`);
@@ -149,16 +150,17 @@ export default abstract class GameScene extends Phaser.Scene {
             i = 1;
             this.mapObjectLayers.playerSpawns.forEach(s => {
                 const data = getObjectCustomProps<SpawnData>(s.data);
-                s.setDisplaySize(s.displayWidth * this.mapScale, s.displayHeight * this.mapScale);
-                s.x = s.x * this.mapScale;
-                s.y = s.y * this.mapScale;
+                s.setDisplayOrigin(0, 0);
+                // s.setDisplaySize(s.displayWidth * this.mapScale, s.displayHeight * this.mapScale);
+                // s.x = s.x * this.mapScale;
+                // s.y = s.y * this.mapScale;
                 s.setDepth(100);
                 s.name = data.Name;
                 console.debug(`\t${i}/${this.mapObjectLayers.playerSpawns.length}: ${s.name}`);
                 i++;
             });
         } else {
-            console.warn(`⚠ No player spawn points found on this map!`)
+            console.warn(`⚠ No player spawn points found on this map!`);
         }
 
         // Player
