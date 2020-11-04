@@ -28,6 +28,9 @@ export default class GameWorldScene extends Phaser.Scene {
         this.scene.launch(sceneKey);
         this.activeScene = sceneKey;
         this.subscribeDevHUD(sceneKey);
+        this.scene.get('GameWorldScene').events.emit('devData', {
+            location: sceneKey
+        });
     }
 
     subscribeDevHUD (scene: string) {
