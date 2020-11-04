@@ -181,7 +181,9 @@ export default abstract class GameScene extends Phaser.Scene {
         // Collision
         console.debug(`🥊 Adding collision to ${this.floorLayer}.`)
         this.physics.world.addCollider(this.player, this.mapTileLayers[this.floorLayer]);
-        this.map.setCollisionBetween(0, 20000, true, true, this.floorLayer);
+        const start = this.mapTileLayers[this.floorLayer].tileset[0].firstgid;
+        const end = start + this.mapTileLayers[this.floorLayer].tileset[0].total;
+        this.map.setCollisionBetween(start, end, true, true, this.floorLayer);
         // this.mapObjectLayers.floor = this.map.createFromObjects('floor', 'floor', {
         //     x: 0,
         //     y: 0,
