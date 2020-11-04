@@ -20,7 +20,7 @@ export default class DevHUD extends Phaser.Scene {
     }
 
     create () {
-        this.playerPos = this.add.text(10, 10, this.playerText(), {font: '24px sans-serif', fill: '#fff'});
+        this.playerPos = this.add.text(0, 0, this.playerText(), {font: '12px monospace', fill: '#fff'});
         this.scene.get('GameWorldScene').events.on('devData', (data: DevData) => {
             // @ts-ignore
             Object.keys(data).forEach(k => this[k] = data[k]);

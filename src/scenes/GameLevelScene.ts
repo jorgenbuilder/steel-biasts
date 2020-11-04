@@ -1,6 +1,8 @@
 import Dwarf from 'assets/dwarf.png';
+import Portal from 'assets/portal.png';
 import Player from "sprites/Player";
 import playerAnimations from 'animations/Player';
+import portalAnimations from 'animations/Portal';
 import { getObjectCustomProps, PortalData, SpawnData } from 'utils/mapProps';
 
 export default abstract class GameScene extends Phaser.Scene {
@@ -56,9 +58,11 @@ export default abstract class GameScene extends Phaser.Scene {
     
     preload () {
         console.debug(`Preloading ${this.scene.key}.`);
-        // Initialize player animations
+        
+        // Initialize animations
         this.load.on('complete', () => {
             playerAnimations(this);
+            portalAnimations(this);
         });
         
         // Character sprite
@@ -66,6 +70,12 @@ export default abstract class GameScene extends Phaser.Scene {
             frameWidth: 180,
             frameHeight: 240
         });
+
+        // Portal sprite
+        this.load.spritesheet('portal', Portal, {
+            frameWidth: 116,
+            frameHeight: 275,
+        })
 
         // Scene-specific game map
         this.load.tilemapTiledJSON(this.mapConf.key, this.mapConf.asset);
@@ -125,7 +135,7 @@ export default abstract class GameScene extends Phaser.Scene {
         this.mapObjectLayers.portals = this.map.createFromObjects('portals', 'portal', {
             x: 0,
             y: 0,
-            key: 'util',
+            key: 'portal',
         });
         if (this.mapObjectLayers.portals) {
             i = 1;
