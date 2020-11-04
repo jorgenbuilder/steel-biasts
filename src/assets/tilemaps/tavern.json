@@ -162,6 +162,19 @@
          "tilecount":8,
          "tileheight":16,
          "tilewidth":16
+        }, 
+        {
+         "columns":80,
+         "firstgid":4105,
+         "image":"..\/tilesets\/szadi-caves\/props1.png",
+         "imageheight":1280,
+         "imagewidth":1280,
+         "margin":0,
+         "name":"props1",
+         "spacing":0,
+         "tilecount":6400,
+         "tileheight":16,
+         "tilewidth":16
         }],
  "tilewidth":16,
  "type":"map",

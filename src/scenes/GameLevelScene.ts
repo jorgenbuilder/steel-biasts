@@ -186,6 +186,8 @@ export default abstract class GameScene extends Phaser.Scene {
             spawnPoint.y,
             'dwarf'
         );
+        this.player.spawning = true;
+        this.player.teleporting = true;
         this.player.setDepth(10);
 
         // Collision
@@ -258,6 +260,7 @@ export default abstract class GameScene extends Phaser.Scene {
         const map: {[key: string]: any} = {
             'tavern': 'TavernScene',
             'tavern-way': 'TavernWayScene',
+            'fork': 'ForkScene',
         }
         this.scene.get('GameWorldScene').events.emit('teleport', map[destination]);
     }

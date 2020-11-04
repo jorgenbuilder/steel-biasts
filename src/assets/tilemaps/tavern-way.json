@@ -117,6 +117,38 @@
                         {
                          "name":"Destination",
                          "type":"string",
+                         "value":"fork"
+                        }, 
+                        {
+                         "name":"Name",
+                         "type":"string",
+                         "value":"fork"
+                        }, 
+                        {
+                         "name":"OnTouch",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Portal",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"Portal",
+                 "visible":true,
+                 "width":96,
+                 "x":1758.01115727916,
+                 "y":808.196522006771
+                }, 
+                {
+                 "height":90.5,
+                 "id":9,
+                 "name":"portal",
+                 "properties":[
+                        {
+                         "name":"Destination",
+                         "type":"string",
                          "value":"tavern"
                         }, 
                         {
@@ -138,8 +170,8 @@
                  "type":"Portal",
                  "visible":true,
                  "width":96,
-                 "x":0.916666666666671,
-                 "y":814.5
+                 "x":16.610649430594,
+                 "y":800.991920590951
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -173,6 +205,28 @@
                  "width":96,
                  "x":0.416666666666671,
                  "y":922
+                }, 
+                {
+                 "height":16,
+                 "id":10,
+                 "name":"playerSpawn",
+                 "properties":[
+                        {
+                         "name":"Name",
+                         "type":"string",
+                         "value":"fork"
+                        }, 
+                        {
+                         "name":"Spawn",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"PlayerSpawn",
+                 "visible":true,
+                 "width":96,
+                 "x":1754.7947060634,
+                 "y":904.428439519852
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -193,7 +247,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":9,
+ "nextobjectid":11,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.2",
@@ -313,6 +367,19 @@
          "name":"bg4",
          "spacing":0,
          "tilecount":1800,
+         "tileheight":16,
+         "tilewidth":16
+        }, 
+        {
+         "columns":80,
+         "firstgid":23601,
+         "image":"..\/tilesets\/szadi-caves\/props1.png",
+         "imageheight":1280,
+         "imagewidth":1280,
+         "margin":0,
+         "name":"props1",
+         "spacing":0,
+         "tilecount":6400,
          "tileheight":16,
          "tilewidth":16
         }],
