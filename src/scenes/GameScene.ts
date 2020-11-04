@@ -1,6 +1,8 @@
 import { DevData } from "./DevHUD";
 
 export default class GameWorldScene extends Phaser.Scene {
+
+    private initialScene: string = 'TavernScene';
     constructor () {
         super('GameWorldScene');
     }
@@ -14,7 +16,7 @@ export default class GameWorldScene extends Phaser.Scene {
         this.scene.get('GameWorldScene').events.on('teleport', (sceneKey: string) => {
             this.activateGameScene(sceneKey);
         });
-        this.activateGameScene('TavernScene');
+        this.activateGameScene(this.initialScene);
     }
     
     activateGameScene (sceneKey: string) {

@@ -5,6 +5,9 @@ import GameLevelScene from 'scenes/GameLevelScene';
 
 export default class TavernScene extends GameLevelScene {
 
+    protected floorLayer = 'tavernFloor';
+    protected cameraBoundsLayer = 'tavernCameraBounds';
+
     protected mapConf = {
         asset: Map,
         key: 'tavernMap',
@@ -14,10 +17,10 @@ export default class TavernScene extends GameLevelScene {
         { key: 'util',  asset: UtilTiles, },
     ];
     protected mapTileLayersConf = [
-        {key: 'background',    tileSet: 'level', visible: true,    depth: 1,},
-        {key: 'floor',         tileSet: 'level', visible: true,    depth: 5,},
-        {key: 'foreground',    tileSet: 'level', visible: true,    depth: 15,},
-        {key: 'cameraBounds',  tileSet: 'util', visible: false,   depth: 100,},
+        {key: 'tavernBackground',    tileSet: 'level', visible: true,    depth: 1,},
+        {key: 'tavernFloor',         tileSet: 'level', visible: true,    depth: 5,},
+        {key: 'tavernForeground',    tileSet: 'level', visible: true,    depth: 15,},
+        {key: 'tavernCameraBounds',  tileSet: 'util', visible: false,   depth: 100,},
     ]
 
     protected spawnAt = 'tavern-way';
@@ -28,9 +31,6 @@ export default class TavernScene extends GameLevelScene {
 
     preloadHook () {}
 
-    createHook () {
-        this.map.setCollisionBetween(0, 10000, true, true, 1);
-        this.physics.world.addCollider(this.player, this.mapTileLayers.floor);
-    }
+    createHook () {}
     
 }

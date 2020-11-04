@@ -11,6 +11,9 @@ import GameLevelScene from 'scenes/GameLevelScene';
 
 export default class TavernWayScene extends GameLevelScene {
 
+    protected floorLayer = 'tavernWayFloor';
+    protected cameraBoundsLayer = 'tavernWayCameraBounds';
+
     protected mapConf = {
         asset: Map,
         key: 'tavernWayMap',
@@ -26,14 +29,14 @@ export default class TavernWayScene extends GameLevelScene {
         { key: 'props2',asset: PropsTiles, },
     ];
     protected mapTileLayersConf = [
-        {key: 'bg1',            tileSet: 'bg1',     visible: true,    depth: 1,},
-        {key: 'bg2',            tileSet: 'bg2',     visible: true,    depth: 2,},
-        {key: 'bg3',            tileSet: 'bg3',     visible: true,    depth: 3,},
-        {key: 'bg4',            tileSet: 'bg4',     visible: true,    depth: 4,},
-        {key: 'floor',          tileSet: 'level',   visible: true,    depth: 5,},
-        // {key: 'foreground',     tileSet: 'props2',  visible: true,    depth: 15,},
-        // {key: 'groundClutter',  tileSet: 'level',   visible: true,    depth: 11,},
-        {key: 'cameraBounds',   tileSet: 'util',    visible: false,   depth: 100,},
+        {key: 'tavernWayBg1',            tileSet: 'bg1',     visible: true,    depth: 1,},
+        {key: 'tavernWayBg2',            tileSet: 'bg2',     visible: true,    depth: 2,},
+        {key: 'tavernWayBg3',            tileSet: 'bg3',     visible: true,    depth: 3,},
+        {key: 'tavernWayBg4',            tileSet: 'bg4',     visible: true,    depth: 4,},
+        {key: 'tavernWayFloor',          tileSet: 'level',   visible: true,    depth: 5,},
+        {key: 'tavernWayForeground',     tileSet: 'props2',  visible: true,    depth: 15,},
+        {key: 'tavernWayGroundClutter',  tileSet: 'level',   visible: true,    depth: 11,},
+        {key: 'tavernWayCameraBounds',   tileSet: 'util',    visible: false,   depth: 100,},
     ]
     protected spawnAt = 'tavern';
 
@@ -43,9 +46,6 @@ export default class TavernWayScene extends GameLevelScene {
         
     preloadHook () {}
 
-    createHook () {
-        this.map.setCollisionBetween(130, 130, true, true, 15);
-        this.physics.world.addCollider(this.player, this.mapTileLayers.floor);
-    }
+    createHook () {}
     
 }

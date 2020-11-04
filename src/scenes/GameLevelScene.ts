@@ -17,6 +17,8 @@ export default abstract class GameScene extends Phaser.Scene {
         key: string;
         asset: string;
     }[];
+    protected abstract floorLayer: string;
+    protected abstract cameraBoundsLayer: string;
 
     // Tilesets
     protected tileSets: {
@@ -129,7 +131,7 @@ export default abstract class GameScene extends Phaser.Scene {
             i = 1;
             this.mapObjectLayers.portals.forEach(p => {
                 const data = getObjectCustomProps<PortalData>(p.data);
-                p.setDisplayOrigin(0, 0);
+                // p.setDisplayOrigin(0, 0);
                 // p.setDisplaySize(p.displayWidth * this.mapScale, p.displayHeight * this.mapScale);
                 // p.x = p.x * this.mapScale;
                 // p.y = p.y * this.mapScale;
@@ -150,7 +152,7 @@ export default abstract class GameScene extends Phaser.Scene {
             i = 1;
             this.mapObjectLayers.playerSpawns.forEach(s => {
                 const data = getObjectCustomProps<SpawnData>(s.data);
-                s.setDisplayOrigin(0, 0);
+                // s.setDisplayOrigin(0, 0);
                 // s.setDisplaySize(s.displayWidth * this.mapScale, s.displayHeight * this.mapScale);
                 // s.x = s.x * this.mapScale;
                 // s.y = s.y * this.mapScale;
@@ -177,9 +179,9 @@ export default abstract class GameScene extends Phaser.Scene {
         this.player.setDepth(10);
 
         // Collision
-        // console.debug(`🥊 Adding collision.`)
-        // this.physics.world.addCollider(this.player, this.mapTileLayers.floor)
-        // this.map.setCollisionBetween(0, 10000, true, true, 1);
+        console.debug(`🥊 Adding collision to ${this.floorLayer}.`)
+        this.physics.world.addCollider(this.player, this.mapTileLayers[this.floorLayer]);
+        this.map.setCollisionBetween(0, 20000, true, true, this.floorLayer);
         // this.mapObjectLayers.floor = this.map.createFromObjects('floor', 'floor', {
         //     x: 0,
         //     y: 0,
@@ -195,13 +197,9 @@ export default abstract class GameScene extends Phaser.Scene {
 
         // Camera
         console.debug(`📷 Configuring camera.`)
+        const bounds = this.mapTileLayers[this.cameraBoundsLayer].getBounds();
         this.cameras.main.startFollow(this.player);
-        this.cameras.main.setBounds(
-            this.mapTileLayers.cameraBounds.getBounds().x,
-            this.mapTileLayers.cameraBounds.getBounds().y,
-            this.mapTileLayers.cameraBounds.getBounds().width,
-            this.mapTileLayers.cameraBounds.getBounds().height,
-        );
+        this.cameras.main.setBounds(bounds.x, bounds.y, bounds.width, bounds.height,);
 
         // Hook for scene-specific initialization logic
         this.createHook();
