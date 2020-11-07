@@ -9,6 +9,7 @@ jobs:
       - run: npm i
       - run: npm run build:dev
   deploy:
+    runs-on: ubuntu-latest
     steps:
       - id: upload-files
         uses: GoogleCloudPlatform/github-actions/upload-cloud-storage@master
