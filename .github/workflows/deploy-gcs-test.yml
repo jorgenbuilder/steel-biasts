@@ -1,0 +1,17 @@
+name: deploy-gcs-test
+on: [push]
+jobs:
+  build-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - run: npm i
+      - run: npm run build:dev
+  deploy:
+    steps:
+      - id: upload-files
+        uses: GoogleCloudPlatform/github-actions/upload-cloud-storage@master
+        with:
+          path: /dist/*
+          destination: steel-test
