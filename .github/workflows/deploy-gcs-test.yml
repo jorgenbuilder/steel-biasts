@@ -25,5 +25,6 @@ jobs:
       - id: upload-files
         uses: GoogleCloudPlatform/github-actions/upload-cloud-storage@master
         with:
+          credentials: ${{ secrets.GCP_CREDENTIALS }}
           path: dist/
           destination: steel-test
