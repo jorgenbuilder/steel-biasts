@@ -16,7 +16,7 @@ jobs:
       - name: Install node
         uses: actions/setup-node@v1
 
-      - name: Install npm desp
+      - name: Install npm deps
         run: npm i
 
       - name: Build
@@ -26,5 +26,5 @@ jobs:
         uses: GoogleCloudPlatform/github-actions/upload-cloud-storage@master
         with:
           credentials: ${{ secrets.GCP_CREDENTIALS }}
-          path: dist/
+          path: dist/*
           destination: steel-test
