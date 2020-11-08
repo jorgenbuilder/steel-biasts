@@ -41,7 +41,7 @@
          "objects":[
                 {
                  "gid":4098,
-                 "height":111.75,
+                 "height":112,
                  "id":12,
                  "name":"portal",
                  "properties":[
@@ -69,8 +69,46 @@
                  "type":"Portal",
                  "visible":true,
                  "width":64,
-                 "x":1727.875,
-                 "y":527.875
+                 "x":1728,
+                 "y":528
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":9,
+         "name":"triggers",
+         "objects":[
+                {
+                 "height":128,
+                 "id":17,
+                 "name":"trigger",
+                 "properties":[
+                        {
+                         "name":"DialogScript",
+                         "type":"string",
+                         "value":"tavern-chat"
+                        }, 
+                        {
+                         "name":"IsDialog",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"OnTouch",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"trigger",
+                 "visible":true,
+                 "width":192,
+                 "x":1266,
+                 "y":432
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -96,9 +134,9 @@
                  "rotation":0,
                  "type":"PlayerSpawn",
                  "visible":true,
-                 "width":63.3333333333333,
-                 "x":1728.33333333333,
-                 "y":544.375
+                 "width":64,
+                 "x":1728,
+                 "y":544
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -130,8 +168,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":9,
- "nextobjectid":17,
+ "nextlayerid":10,
+ "nextobjectid":20,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.2",

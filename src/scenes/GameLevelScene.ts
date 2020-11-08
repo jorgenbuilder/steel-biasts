@@ -3,12 +3,14 @@ import Portal from 'assets/portal.png';
 import Player from "sprites/Player";
 import playerAnimations from 'animations/Player';
 import portalAnimations from 'animations/Portal';
-import { getObjectCustomProps, PortalData, SpawnData } from 'utils/mapProps';
+import { getObjectCustomProps, PortalData, SpawnData, TriggerData } from 'utils/mapProps';
+import TriggerLayer from 'sprites/Trigger';
+import DialogueScene from './DialogueScene';
 
 export default abstract class GameScene extends Phaser.Scene {
 
     // The player's character
-    protected player: Player;
+    public player: Player;
     
     // Scene Assets
     protected abstract mapConf: {
@@ -47,6 +49,10 @@ export default abstract class GameScene extends Phaser.Scene {
 
     // Spawn conf
     protected abstract spawnAt: string;
+
+    protected triggers: TriggerLayer;
+    public dialogueScene: DialogueScene;
+    public dialogActive: boolean = false;
 
 
     constructor (key: string) {
@@ -141,7 +147,7 @@ export default abstract class GameScene extends Phaser.Scene {
             i = 1;
             this.mapObjectLayers.portals.forEach(p => {
                 const data = getObjectCustomProps<PortalData>(p.data);
-                // p.setDisplayOrigin(0, 0);
+                p.setDisplayOrigin(0, 1);
                 // p.setDisplaySize(p.displayWidth * this.mapScale, p.displayHeight * this.mapScale);
                 // p.x = p.x * this.mapScale;
                 // p.y = p.y * this.mapScale;
@@ -162,7 +168,7 @@ export default abstract class GameScene extends Phaser.Scene {
             i = 1;
             this.mapObjectLayers.playerSpawns.forEach(s => {
                 const data = getObjectCustomProps<SpawnData>(s.data);
-                // s.setDisplayOrigin(0, 0);
+                s.setDisplayOrigin(0, 1);
                 // s.setDisplaySize(s.displayWidth * this.mapScale, s.displayHeight * this.mapScale);
                 // s.x = s.x * this.mapScale;
                 // s.y = s.y * this.mapScale;
@@ -215,6 +221,12 @@ export default abstract class GameScene extends Phaser.Scene {
         this.cameras.main.startFollow(this.player);
         this.cameras.main.setBounds(bounds.x, bounds.y, bounds.width, bounds.height,);
 
+        // Dialog triggers
+        console.debug(`🔫🗣 Initializing dialogue triggers... ${this.scene.key}`);
+        this.dialogueScene = new DialogueScene(this.scene.key);
+        this.triggers = new TriggerLayer(this, this.map.getObjectLayer('triggers').objects);
+        this.scene.get('GameWorldScene').events.on('unpause', () => this.scene.resume(this.scene.key));
+
         // Hook for scene-specific initialization logic
         this.createHook();
     }
@@ -222,6 +234,7 @@ export default abstract class GameScene extends Phaser.Scene {
     update () {
         // Player
         this.player.update();
+        this.triggers.update();
 
         // Dev HUD
         this.events.emit(
@@ -263,6 +276,20 @@ export default abstract class GameScene extends Phaser.Scene {
             'fork': 'ForkScene',
         }
         this.scene.get('GameWorldScene').events.emit('teleport', map[destination]);
+    }
+
+    triggerDialogue () {
+        if (!this.dialogActive) {
+            console.log(
+                `Trigger Dialogue: DialogueScene`,
+                this.scene.get(`DialogueScene`),
+                this.dialogueScene,
+                this
+            );
+            this.dialogActive = true;
+            this.scene.launch(`DialogueScene`);
+            this.scene.pause(this.scene.key);
+        }
     }
     
 }

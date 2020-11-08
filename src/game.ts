@@ -3,6 +3,7 @@ import ForkScene from 'scenes/chapter-1/Fork';
 import TavernScene from 'scenes/chapter-1/Tavern';
 import TavernWayScene from 'scenes/chapter-1/TavernWay';
 import DevHUD from 'scenes/DevHUD';
+import DialogueScene from 'scenes/DialogueScene';
 import GameWorldScene from 'scenes/GameScene';
 
 const config: Phaser.Types.Core.GameConfig = {
@@ -27,6 +28,7 @@ const config: Phaser.Types.Core.GameConfig = {
         TavernWayScene,
         ForkScene,
         DevHUD,
+        DialogueScene,
     ],
 };
 
