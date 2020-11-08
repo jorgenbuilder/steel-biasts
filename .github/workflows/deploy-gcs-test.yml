@@ -8,11 +8,8 @@ jobs:
       - uses: actions/setup-node@v1
       - run: npm i
       - run: npm run build:dev
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
       - id: upload-files
         uses: GoogleCloudPlatform/github-actions/upload-cloud-storage@master
         with:
-          path: /dist/
+          path: ./dist/*
           destination: steel-test
