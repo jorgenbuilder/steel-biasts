@@ -23,7 +23,6 @@ jobs:
         run: npm run build:dev
 
       - id: upload-files
-        uses: jorgenbuilder/steel-biasts@master
         uses: GoogleCloudPlatform/github-actions/upload-cloud-storage@master
         with:
           path: /dist/
