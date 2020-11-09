@@ -147,9 +147,13 @@ export default abstract class GameScene extends Phaser.Scene {
         }
 
         // Player
-        const spawnPoint = this.spawns.gameObjects.find(
+        let spawnPoint = this.spawns.gameObjects.find(
             x => x.data.get('Name') === this.spawnAt
         );
+        if (!spawnPoint) {
+            console.error(`💣 Spawn point "${this.spawnAt}" doesn't exist!`)
+            spawnPoint = this.spawns.gameObjects[0];
+        }
         console.debug(`🤺 Spawning player at ${this.spawnAt} spawn point.`)
         this.player = new Player(
             this,

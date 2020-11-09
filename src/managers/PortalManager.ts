@@ -53,18 +53,23 @@ export default class PortalLayer {
     }
 
     takePortal (portal: Phaser.Data.DataManager) {
-        const destination = portal.get('Destination');
         const map: {[key: string]: any} = {
             'tavern': 'TavernScene',
             'tavern-way': 'TavernWayScene',
             'fork': 'ForkScene',
         }
+        let destination = map[portal.get('Destination')];
+        const origin = Object.entries(map).find(([k, v]) => v === this.scene.scene.key)[0];
         console.debug(`Teleport to ${map[portal.get('Destination')]} from ${origin}.`);
+        if (!destination) {
+            console.error(`💣 Destination "${portal.get('Destination')}" doesn't exist!`);
+            destination = 'TavernScene';
+        }
         this.scene.player.teleporting = true;
         this.scene.player.controllable = false;
         this.renderTransition(() => {
             this.scene.scene.pause(this.scene.scene.key);
-            this.scene.scene.get('GameWorldScene').events.emit('teleport', map[destination], origin);
+            this.scene.scene.get('GameWorldScene').events.emit('teleport', destination, origin);
         });
     }
 
