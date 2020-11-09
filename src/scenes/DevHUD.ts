@@ -54,6 +54,7 @@ export default class DevHUD extends Phaser.Scene {
         Player Spawning: ${this.pSpawning}
         Player Teleporting: ${this.pTeleporting}
         Emitters: ${this.recentEmitters.map(x => x.emitter).join(', ')}
+        FPS: ${Math.floor(this.game.loop.actualFps)}
         `
     }
 
