@@ -167,7 +167,8 @@ export default abstract class GameScene extends Phaser.Scene {
         const floor: undefined | Phaser.Types.Tilemaps.TiledObject = undefined;
         // const floor: undefined | Phaser.Types.Tilemaps.TiledObject = this.map.getObjectLayer('floor').objects[0];
         if (floor) {
-            console.log('Using floor object layer.');
+            // Arcade physics supports only unrotated rectangles and circles
+            // I will have to switch to matter physics if I want slope collisions
             const body = this.add.polygon(floor.x, floor.y, floor.polygon, 0x0000FFF, 1)
             .setOrigin(0)
             .setVisible(true)
