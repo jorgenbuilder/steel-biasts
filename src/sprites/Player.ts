@@ -7,6 +7,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     public teleporting: boolean = false;
     public spawning: boolean = true;
     public invulnerable: boolean = false;
+    public controllable: boolean = true;
 
     public originX = 0;
     public originY = 1;
@@ -30,6 +31,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     update () {
+        if (this.controllable) this.controlPlayer();
+    }
+
+    controlPlayer () {
         const keys = this.scene.input.keyboard.createCursorKeys();
         const speed = 500;
         if (keys.left.isDown) {

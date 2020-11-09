@@ -1,6 +1,6 @@
 # Burli, Frorror, Thornri, Thrain, and The Steel Biasts
 
-Test the current state of the game [here](https://storage.googleapis.com/steel-test/index.html).
+Test the current state of the game [here](https://storage.googleapis.com/steel-test/dist/index.html).
 
 ## Getting Started
 
