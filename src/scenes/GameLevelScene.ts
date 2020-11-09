@@ -2,7 +2,7 @@ import Dwarf from 'assets/dwarf.png';
 import Player from "sprites/Player";
 import playerAnimations from 'animations/Player';
 import portalAnimations from 'animations/Portal';
-import DialogueScene from './DialogueScene';
+import DialogueScene, { parseScript } from './DialogueScene';
 import TriggerManager from 'managers/TriggerManager';
 import PortalManager from 'managers/PortalManager';
 import SpawnManager from 'managers/SpawnManager';
@@ -45,6 +45,7 @@ export default abstract class GameScene extends Phaser.Scene {
 
     // Portals
     protected portals: PortalManager;
+    public disablePortals: boolean = false;
 
     // Spawns
     public abstract spawnAt: string;
@@ -54,9 +55,8 @@ export default abstract class GameScene extends Phaser.Scene {
     protected triggers: TriggerManager;
 
     // Dialogue
-    public dialogueScene: DialogueScene;
     public dialogActive: boolean = false;
-    public dialogSequences: {[key: string]: any} = {};
+    public dialogScripts: {[key: string]: any} = {};
 
 
     constructor (key: string) {
@@ -183,11 +183,13 @@ export default abstract class GameScene extends Phaser.Scene {
         // Dialog triggers
         console.debug(`🔫🗣 Initializing dialogue triggers... ${this.scene.key}`);
         if (this.map.getObjectLayer('triggers')) {
-            this.dialogueScene = new DialogueScene(this.scene.key);
             this.triggers = new TriggerManager(this, this.map.getObjectLayer('triggers').objects);
         }
         this.scene.get('GameWorldScene').events.on('unpause', () => {
             this.scene.resume(this.scene.key);
+            this.player.controllable = true;
+            this.disablePortals = false;
+            this.dialogActive = false;
         });
 
         // Hook for scene-specific initialization logic
@@ -195,10 +197,9 @@ export default abstract class GameScene extends Phaser.Scene {
     }
 
     update () {
-        // Player
         this.player.update();
-        if (this.triggers) this.triggers.update();
         this.portals.update();
+        if (this.triggers) this.triggers.update();
 
         // Dev HUD
         this.events.emit(
@@ -213,10 +214,15 @@ export default abstract class GameScene extends Phaser.Scene {
     }
 
     triggerDialogue (script: string) {
+        console.log(`Dialogue triggered: ${script}.`)
         if (!this.dialogActive) {
             this.dialogActive = true;
             this.scene.launch(`DialogueScene`);
-            this.scene.pause(this.scene.key);
+            (this.scene.get(`DialogueScene`) as DialogueScene).script = parseScript(this.dialogScripts[script]);
+            (this.scene.get(`DialogueScene`) as DialogueScene).activate();
+            if (false) {
+                this.scene.pause(this.scene.key);
+            }
         }
     }
 

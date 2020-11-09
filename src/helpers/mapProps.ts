@@ -25,4 +25,5 @@ export interface TriggerData {
     OnTouch: boolean;
     IsDialogue: boolean;
     DialogueScript: string;
+    PauseGame: boolean;
 }

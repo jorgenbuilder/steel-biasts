@@ -25,6 +25,9 @@ export default class PortalLayer {
         this.scene.scene.get(this.scene.scene.key).events.emit('devData', {
             emitter: this.scene.scene.key,
         });
+        if (this.scene.disablePortals) {
+            return;
+        }
         const portalCollisions = this.getPortalCollisions();
         if (portalCollisions.length) {
             const portal = portalCollisions[0];

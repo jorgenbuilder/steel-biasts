@@ -466,23 +466,50 @@
                         {
                          "name":"DialogueScript",
                          "type":"string",
-                         "value":"tavern-chat"
+                         "value":"tavern-merriment-1"
                         }, 
                         {
                          "name":"IsDialog",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }, 
                         {
                          "name":"OnTouch",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"trigger",
                  "visible":true,
                  "width":192,
                  "x":1266,
+                 "y":432
+                }, 
+                {
+                 "height":128,
+                 "id":22,
+                 "name":"trigger",
+                 "properties":[
+                        {
+                         "name":"DialogueScript",
+                         "type":"string",
+                         "value":"tavern-merriment-2"
+                        }, 
+                        {
+                         "name":"IsDialog",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"OnTouch",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"trigger",
+                 "visible":true,
+                 "width":192,
+                 "x":608,
                  "y":432
                 }],
          "opacity":1,
@@ -542,12 +569,12 @@
                  "x":96,
                  "y":32
                 }],
-         "height":64,
+         "height":16,
          "id":6,
          "name":"tavernForeground",
          "opacity":1,
          "startx":0,
-         "starty":0,
+         "starty":32,
          "type":"tilelayer",
          "visible":true,
          "width":112,
@@ -555,7 +582,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":22,
+ "nextobjectid":23,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.2",

@@ -1,16 +1,16 @@
 export default class Player extends Phaser.Physics.Arcade.Sprite {
 
-    private direction: 'right' | 'left' = 'right';
-    private standing () { return `stand${this.direction}`; }
-    private keys: Phaser.Types.Input.Keyboard.CursorKeys;
-
+    public direction: 'right' | 'left' = 'right';
+    
     public teleporting: boolean = false;
     public spawning: boolean = true;
     public invulnerable: boolean = false;
     public controllable: boolean = true;
-
+    
     public originX = 0;
     public originY = 1;
+
+    public standing () { return `stand${this.direction}`; }
     
     constructor (
         scene: Phaser.Scene,
@@ -55,6 +55,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityY(-700);
             this.anims.play(`stand${this.direction}`);
         }
+    }
+
+    haltMovement () {
+        this.setVelocity(0);
     }
 
     canTeleport (): boolean {

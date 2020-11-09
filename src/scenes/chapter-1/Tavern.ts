@@ -2,7 +2,8 @@ import LevelTiles from 'assets/tilesets/szadi-caves/level.png';
 import UtilTiles from 'assets/tilesets/utils/util.png';
 import Map from 'assets/tilemaps/tavern.json';
 import GameLevelScene from 'scenes/GameLevelScene';
-import TavernChat from 'assets/dialog/tavern-chat.json';
+import Dialogue1 from 'assets/dialog/tavern-merriment-1.json';
+import Dialogue2 from 'assets/dialog/tavern-merriment-2.json';
 
 export default class TavernScene extends GameLevelScene {
 
@@ -24,6 +25,8 @@ export default class TavernScene extends GameLevelScene {
 
     public spawnAt = 'tavern-way';
 
+    public disablePortals = true;
+
     constructor () {
         super('TavernScene');
     }
@@ -31,7 +34,8 @@ export default class TavernScene extends GameLevelScene {
     preloadHook () {}
 
     createHook () {
-        this.dialogSequences['tavern-chat'] = TavernChat;
+        this.dialogScripts['tavern-merriment-1'] = Dialogue1;
+        this.dialogScripts['tavern-merriment-2'] = Dialogue2;
     }
     
 }

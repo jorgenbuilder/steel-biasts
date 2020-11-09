@@ -1,10 +1,11 @@
 import GameScene from "scenes/GameLevelScene";
-import { getObjectCustomProps, tiledPropsToObject, TriggerData } from "helpers/mapProps";
+import { tiledPropsToObject, TriggerData } from "helpers/mapProps";
 
 export default class TriggerLayer {
     private scene: GameScene;
     private objects: Phaser.Types.Tilemaps.TiledObject[] = [];
     private gameObjects: Phaser.GameObjects.Rectangle[] = [];
+    private triggered: Phaser.GameObjects.Rectangle[] = [];
 
     constructor (scene: GameScene, objects: Phaser.Types.Tilemaps.TiledObject[]) {
         this.scene = scene;
@@ -23,17 +24,21 @@ export default class TriggerLayer {
 
     update () {
         const keys = this.scene.input.keyboard.createCursorKeys();
-        this.gameObjects.forEach(t => {
+        this.gameObjects.filter(x => this.triggered.indexOf(x) < 0).forEach(t => {
             if (Phaser.Geom.Intersects.RectangleToRectangle(this.scene.player.getBounds(), t.getBounds())) {
                 const activate = keys.space.isDown;
                 if (t.data.get('OnTouch') || activate) {
-                    this.triggerDialog(t.data.get('DialogueScript'));
+                    this.triggerDialogue(t.data.get('DialogueScript'))
+                    this.triggered.push(t);
                 }
             }
         });
     }
 
-    triggerDialog (dialogScript: string) {
-        this.scene.triggerDialogue(dialogScript);    
+    triggerDialogue (script: string) {
+        this.scene.player.anims.play(this.scene.player.standing());
+        this.scene.player.haltMovement();
+        this.scene.player.controllable = false;
+        this.scene.triggerDialogue(script);
     }
 }
