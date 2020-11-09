@@ -54,7 +54,15 @@ export default class DialogueScene extends Phaser.Scene {
 
     setText (passage: DialoguePassage) {
         this.speakerText.setText(passage.speaker);
-        this.dialogueText.setText(passage.text);
+        this.tweens.addCounter({
+            from: 0,
+            to: passage.text.length,
+            duration: passage.text.length * 10,
+            onUpdate: (tween) => {
+                const i = tween.getValue();
+                this.dialogueText.setText(passage.text.slice(0, i));
+            },
+        });
     }
 
     private getGameWidth (): number {
