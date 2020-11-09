@@ -125,3 +125,26 @@
 - [ ] 
 - [ ] 
 - [ ] 
+
+# Sound
+
+- [ ] Add atmospheric sound
+- [ ] Add sound on / off
+- [ ] Add music
+- [ ] Add walk sound
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+
+# Game UI
+
+- [ ] Add an esc menu
+    - [ ] Volume settings (all in one)
+    - [ ] Turn off music
+    - [ ] 
+    - [ ] 
+- [ ] Add title screen
+- [ ] 
+- [ ] 
+- [ ] 
