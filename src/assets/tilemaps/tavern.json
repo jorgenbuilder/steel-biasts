@@ -469,14 +469,29 @@
                          "value":"tavern-merriment-1"
                         }, 
                         {
-                         "name":"IsDialog",
+                         "name":"DisablePlayer",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"IsDialogue",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Manager",
+                         "type":"string",
+                         "value":"dialogue"
                         }, 
                         {
                          "name":"OnTouch",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"PauseGame",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"trigger",
@@ -496,14 +511,29 @@
                          "value":"tavern-merriment-2"
                         }, 
                         {
-                         "name":"IsDialog",
+                         "name":"DisablePlayer",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"IsDialogue",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Manager",
+                         "type":"string",
+                         "value":"dialogue"
                         }, 
                         {
                          "name":"OnTouch",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"PauseGame",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"trigger",

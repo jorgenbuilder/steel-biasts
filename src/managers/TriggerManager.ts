@@ -1,5 +1,5 @@
 import GameScene from "scenes/GameLevelScene";
-import { tiledPropsToObject, TriggerData } from "helpers/mapProps";
+import { getObjectCustomProps, tiledPropsToObject, TriggerData } from "helpers/mapProps";
 
 export default class TriggerLayer {
     private scene: GameScene;
@@ -28,17 +28,18 @@ export default class TriggerLayer {
             if (Phaser.Geom.Intersects.RectangleToRectangle(this.scene.player.getBounds(), t.getBounds())) {
                 const activate = keys.space.isDown;
                 if (t.data.get('OnTouch') || activate) {
-                    this.triggerDialogue(t.data.get('DialogueScript'))
+                    const data = t.data.getAll() as TriggerData;
+                    const manager = this.managers()[data.Manager];
+                    manager.trigger(data);
                     this.triggered.push(t);
                 }
             }
         });
     }
 
-    triggerDialogue (script: string) {
-        this.scene.player.anims.play(this.scene.player.standing());
-        this.scene.player.haltMovement();
-        this.scene.player.controllable = false;
-        this.scene.triggerDialogue(script);
+    managers () {
+        return {
+            dialogue: this.scene.dialogue,
+        }
     }
 }

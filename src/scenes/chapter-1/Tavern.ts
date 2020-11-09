@@ -34,8 +34,8 @@ export default class TavernScene extends GameLevelScene {
     preloadHook () {}
 
     createHook () {
-        this.dialogScripts['tavern-merriment-1'] = Dialogue1;
-        this.dialogScripts['tavern-merriment-2'] = Dialogue2;
+        this.dialogue.scripts['tavern-merriment-1'] = Dialogue1;
+        this.dialogue.scripts['tavern-merriment-2'] = Dialogue2;
     }
     
 }

@@ -1,22 +1,18 @@
+import DialogueManager, { DialoguePassage } from "managers/DialogueManager";
+
 export default class DialogueScene extends Phaser.Scene {
 
-    private sceneKey: string;
+    // Visual Config
     private margin: number = 30;
     private padding: number = 20;
+
+    // UI Element Refs
     private speakerText: Phaser.GameObjects.Text;
     private dialogueText: Phaser.GameObjects.Text;
-    public script: DialoguePassage[];
-    public passageIndex: number = 0;
 
-    constructor (key: string) {
+
+    constructor () {
         super(`DialogueScene`);
-    }
-
-    preload () {}
-
-    create () {
-        const keys = this.input.keyboard.createCursorKeys();
-        keys.space.on('down', () => this.advance());
     }
 
     draw () {
@@ -28,7 +24,8 @@ export default class DialogueScene extends Phaser.Scene {
               p = this.padding,
               dH = 200,
               f = 24;
-        this.add.rectangle(x + m, h - m, w - (2*m), dH, 0x0000FF, .75).setOrigin(0, 1);
+
+        this.add.rectangle(x + m, h - m, w - (2*m), dH, 0x0000FF, .75).setOrigin(0, 1).setStrokeStyle(4, 0xffffff);
         const speakerText = new Phaser.GameObjects.Text(this, x + m + p, h - dH - m + p, ``, {
             wordWrap: {
                 width: w - (2*m + 2*p),
@@ -55,33 +52,9 @@ export default class DialogueScene extends Phaser.Scene {
         this.dialogueText = dialogueText;
     }
 
-    advance () {
-        this.passageIndex++;
-        if (this.passageIndex >= this.script.length) {
-            this.deactivate();
-            return;
-        }
-        this.setText();
-    }
-
-    setText () {
-        this.speakerText.setText(this.script[this.passageIndex].speaker);
-        this.dialogueText.setText(this.script[this.passageIndex].text);
-    }
-
-    activate () {
-        // this.scene.restart();
-        console.log('Script', this.script);
-        this.passageIndex = 0;
-        this.draw();
-        this.setText();
-    }
-
-    deactivate () {
-        const keys = this.input.keyboard.createCursorKeys();
-        keys.space.off('down');
-        this.scene.get('GameWorldScene').events.emit('unpause');
-        this.scene.stop(`DialogueScene`);
+    setText (passage: DialoguePassage) {
+        this.speakerText.setText(passage.speaker);
+        this.dialogueText.setText(passage.text);
     }
 
     private getGameWidth (): number {
@@ -89,17 +62,8 @@ export default class DialogueScene extends Phaser.Scene {
         return typeof w === 'string' ? parseInt(w) : w;
     }
 
-    private getGameHeight () {
+    private getGameHeight (): number {
         const h = this.sys.game.config.height;
         return typeof h === 'string' ? parseInt(h) : h;
     }
-}
-
-interface DialoguePassage {
-    'speaker': string;
-    'text': string;
-};
-
-export function parseScript (script: any): DialoguePassage[] {
-    return script as DialoguePassage[];
 }

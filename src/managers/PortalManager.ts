@@ -71,7 +71,7 @@ export default class PortalLayer {
         this.scene.player.teleporting = true;
         this.scene.player.controllable = false;
         this.renderTransition(() => {
-            this.scene.scene.pause(this.scene.scene.key);
+            this.scene.scene.stop(this.scene.scene.key);
             this.scene.scene.get('GameWorldScene').events.emit('teleport', destination, origin);
         });
     }

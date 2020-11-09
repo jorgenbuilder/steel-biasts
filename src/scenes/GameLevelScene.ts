@@ -2,10 +2,10 @@ import Dwarf from 'assets/dwarf.png';
 import Player from "sprites/Player";
 import playerAnimations from 'animations/Player';
 import portalAnimations from 'animations/Portal';
-import DialogueScene, { parseScript } from './DialogueScene';
 import TriggerManager from 'managers/TriggerManager';
 import PortalManager from 'managers/PortalManager';
 import SpawnManager from 'managers/SpawnManager';
+import DialogueManager from 'managers/DialogueManager';
 
 export default abstract class GameScene extends Phaser.Scene {
 
@@ -48,15 +48,14 @@ export default abstract class GameScene extends Phaser.Scene {
     public disablePortals: boolean = false;
 
     // Spawns
-    public abstract spawnAt: string;
     protected spawns: SpawnManager;
+    public abstract spawnAt: string;
 
     // Triggers
     protected triggers: TriggerManager;
 
     // Dialogue
-    public dialogActive: boolean = false;
-    public dialogScripts: {[key: string]: any} = {};
+    public dialogue: DialogueManager;
 
 
     constructor (key: string) {
@@ -180,17 +179,14 @@ export default abstract class GameScene extends Phaser.Scene {
             console.error(`Map has no camera bounds!`)
         }
 
-        // Dialog triggers
-        console.debug(`🔫🗣 Initializing dialogue triggers... ${this.scene.key}`);
+        // Triggers
+        console.debug(`🔫 Initializing triggers.`);
         if (this.map.getObjectLayer('triggers')) {
             this.triggers = new TriggerManager(this, this.map.getObjectLayer('triggers').objects);
         }
-        this.scene.get('GameWorldScene').events.on('unpause', () => {
-            this.scene.resume(this.scene.key);
-            this.player.controllable = true;
-            this.disablePortals = false;
-            this.dialogActive = false;
-        });
+
+        // Dialogue
+        this.dialogue = new DialogueManager(this);
 
         // Hook for scene-specific initialization logic
         this.createHook();
@@ -209,21 +205,9 @@ export default abstract class GameScene extends Phaser.Scene {
                 pY: this.player.y,
                 pSpawning: this.player.spawning,
                 pTeleporting: this.player.teleporting,
+                emitter: this.scene.key,
             }
         );
-    }
-
-    triggerDialogue (script: string) {
-        console.log(`Dialogue triggered: ${script}.`)
-        if (!this.dialogActive) {
-            this.dialogActive = true;
-            this.scene.launch(`DialogueScene`);
-            (this.scene.get(`DialogueScene`) as DialogueScene).script = parseScript(this.dialogScripts[script]);
-            (this.scene.get(`DialogueScene`) as DialogueScene).activate();
-            if (false) {
-                this.scene.pause(this.scene.key);
-            }
-        }
     }
 
     getGameWidth (): number {

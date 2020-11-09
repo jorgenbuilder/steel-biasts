@@ -1,5 +1,5 @@
 export function getObjectCustomProps<T> (data: Phaser.Data.DataManager): T {
-    console.log(data);
+    console.log(data, data.getAll());
     return tiledPropsToObject(data.getAll());
 }
 
@@ -26,4 +26,6 @@ export interface TriggerData {
     IsDialogue: boolean;
     DialogueScript: string;
     PauseGame: boolean;
+    DisablePlayer: boolean;
+    Manager: 'dialogue';
 }
