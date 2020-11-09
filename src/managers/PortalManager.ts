@@ -59,8 +59,7 @@ export default class PortalLayer {
             'tavern-way': 'TavernWayScene',
             'fork': 'ForkScene',
         }
-        const origin = Object.entries(map).find(([k, v]) => v === this.scene.scene.key)[0];
-        console.log(`Teleport to ${destination} from ${origin}.`);
+        console.debug(`Teleport to ${map[portal.get('Destination')]} from ${origin}.`);
         this.scene.player.teleporting = true;
         this.scene.player.controllable = false;
         this.renderTransition(() => {

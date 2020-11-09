@@ -39,14 +39,12 @@ export default class GameWorldScene extends Phaser.Scene {
     }
 
     subscribeDevHUD (scene: string) {
-        console.log(`Sub to ${scene}.`)
         this.scene.get(scene).events.on('devData', (data: DevData) => {
             this.scene.get('GameWorldScene').events.emit('devData', data);
         });
     }
     
     unsubscribeDevHUD (scene: string) {
-        console.log(`Unsub from ${scene}.`)
         this.scene.get(scene).events.off('devData');
     }
 
