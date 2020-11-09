@@ -23,7 +23,7 @@ export default class DialogueScene extends Phaser.Scene {
               m = this.margin,
               p = this.padding,
               dH = 200,
-              f = 24;
+              f = 26;
 
         this.add.rectangle(x + m, h - m, w - (2*m), dH, 0x0000FF, .75).setOrigin(0, 1).setStrokeStyle(4, 0xffffff);
         const speakerText = new Phaser.GameObjects.Text(this, x + m + p, h - dH - m + p, ``, {
@@ -33,9 +33,10 @@ export default class DialogueScene extends Phaser.Scene {
             maxLines: 1,
             fixedHeight: f,
             fontSize: `${f}px`,
-            backgroundColor: 'rgba(0, 0, 0, .1)',
+            // backgroundColor: 'rgba(0, 0, 0, .1)',
             stroke: '000000',
             strokeThickness: 3,
+            fontStyle: 'bold',
         })
         .setOrigin(0);
         this.add.existing(speakerText);
@@ -45,8 +46,10 @@ export default class DialogueScene extends Phaser.Scene {
                 width: w - (2*m + 2*p),
             },
             stroke: '000',
+            fontSize: '22px',
             strokeThickness: 2,
         })
+        .setLineSpacing(10)
         .setOrigin(0);
         this.add.existing(dialogueText);
         this.dialogueText = dialogueText;

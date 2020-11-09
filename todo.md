@@ -1,7 +1,7 @@
 # Dialogue System
 
 - [x] disable player actions (must have)
-- [ ] typewriter effect (must have)
+- [x] typewriter effect (must have)
 - [ ] continue game world animations (must have)
 - [x] pause the whole game scene? (must have)
 - [ ] scripted sprite movement (nice to have)
@@ -10,6 +10,18 @@
 - [x] speaker (must have)
 - [ ] character art (must have)
 - [ ] sprite animations and events tied to dialog events (nice to have)
+- [ ] modal animations
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+
+# Scripted Events
+
+- [ ] Global event context
 - [ ] 
 
 # Movement System
