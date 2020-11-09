@@ -1,0 +1,18 @@
+- [ ] Use a vector game object as a smoother game floor
+- [ ] Figure out why spawn and portal objects aren't positioning perfectly=
+- [ ] Acceleration based movement (watch )
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
