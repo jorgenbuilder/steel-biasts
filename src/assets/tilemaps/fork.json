@@ -1372,6 +1372,16 @@
                          "name":"Name",
                          "type":"string",
                          "value":"tavern-way"
+                        }, 
+                        {
+                         "name":"OnTouch",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Portal",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -1394,6 +1404,16 @@
                          "name":"Name",
                          "type":"string",
                          "value":"the-descen"
+                        }, 
+                        {
+                         "name":"OnTouch",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Portal",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -1416,6 +1436,16 @@
                          "name":"Name",
                          "type":"string",
                          "value":"hovels"
+                        }, 
+                        {
+                         "name":"OnTouch",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Portal",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"Portal",
@@ -1444,6 +1474,11 @@
                          "name":"Name",
                          "type":"string",
                          "value":"hovels"
+                        }, 
+                        {
+                         "name":"Spawn",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"PlayerSpawn",
@@ -1461,6 +1496,11 @@
                          "name":"Name",
                          "type":"string",
                          "value":"tavern-way"
+                        }, 
+                        {
+                         "name":"Spawn",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"PlayerSpawn",
@@ -1478,6 +1518,11 @@
                          "name":"Name",
                          "type":"string",
                          "value":"the-descent"
+                        }, 
+                        {
+                         "name":"Spawn",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"PlayerSpawn",
