@@ -3,9 +3,10 @@ import Portal from 'assets/portal.png';
 import Player from "sprites/Player";
 import playerAnimations from 'animations/Player';
 import portalAnimations from 'animations/Portal';
-import { getObjectCustomProps, PortalData, SpawnData, TriggerData } from 'utils/mapProps';
-import TriggerLayer from 'sprites/Trigger';
+import TriggerLayer from 'sprites/TriggerManager';
 import DialogueScene from './DialogueScene';
+import PortalLayer from 'sprites/PortalManager';
+import SpawnLayer from 'sprites/SpawnManager';
 
 export default abstract class GameScene extends Phaser.Scene {
 
@@ -22,7 +23,6 @@ export default abstract class GameScene extends Phaser.Scene {
         asset: string;
     }[];
     protected abstract floorLayer: string;
-    protected abstract cameraBoundsLayer: string;
 
     // Tilesets
     protected tileSets: {
@@ -37,9 +37,6 @@ export default abstract class GameScene extends Phaser.Scene {
     protected mapTileLayers: {
         [key: string]: Phaser.Tilemaps.StaticTilemapLayer | Phaser.Tilemaps.DynamicTilemapLayer;
     } = {};
-    protected mapObjectLayers: {
-        [key: string]: Phaser.GameObjects.Sprite[]
-    } = {};
     protected mapTileLayersConf: {
         key: string;
         tileSet: string;
@@ -47,12 +44,20 @@ export default abstract class GameScene extends Phaser.Scene {
         depth: number;
     }[];
 
-    // Spawn conf
-    protected abstract spawnAt: string;
+    // Portals
+    protected portals: PortalLayer;
 
+    // Spawns
+    public abstract spawnAt: string;
+    protected spawns: SpawnLayer;
+
+    // Triggers
     protected triggers: TriggerLayer;
+
+    // Dialogue
     public dialogueScene: DialogueScene;
     public dialogActive: boolean = false;
+    public dialogSequences: {[key: string]: any} = {};
 
 
     constructor (key: string) {
@@ -76,12 +81,6 @@ export default abstract class GameScene extends Phaser.Scene {
             frameWidth: 180,
             frameHeight: 240
         });
-
-        // Portal sprite
-        this.load.spritesheet('portal', Portal, {
-            frameWidth: 116,
-            frameHeight: 275,
-        })
 
         // Scene-specific game map
         this.load.tilemapTiledJSON(this.mapConf.key, this.mapConf.asset);
@@ -138,62 +137,27 @@ export default abstract class GameScene extends Phaser.Scene {
 
         // Portals
         console.debug(`🚪 Adding portals.`)
-        this.mapObjectLayers.portals = this.map.createFromObjects('portals', 'portal', {
-            x: 0,
-            y: 0,
-            key: 'portal',
-        });
-        if (this.mapObjectLayers.portals) {
-            i = 1;
-            this.mapObjectLayers.portals.forEach(p => {
-                const data = getObjectCustomProps<PortalData>(p.data);
-                p.setDisplayOrigin(0, 1);
-                // p.setDisplaySize(p.displayWidth * this.mapScale, p.displayHeight * this.mapScale);
-                // p.x = p.x * this.mapScale;
-                // p.y = p.y * this.mapScale;
-                p.setDepth(100);
-                p.name = data.Name;
-                console.debug(`\t${i}/${this.mapObjectLayers.portals.length}: ${p.name}`);
-            });
-        }
+        this.portals = new PortalLayer(this, this.map.getObjectLayer('portals').objects);
 
-        // Player spawn points
+        // Spawns
         console.debug(`💫 Initializing player spawn points...`);
-        this.mapObjectLayers.playerSpawns = this.map.createFromObjects('playerSpawns', 'playerSpawn', {
-            x: 0,
-            y: 0,
-            key: 'util',
-        });
-        if (this.mapObjectLayers.playerSpawns) {
-            i = 1;
-            this.mapObjectLayers.playerSpawns.forEach(s => {
-                const data = getObjectCustomProps<SpawnData>(s.data);
-                s.setDisplayOrigin(0, 1);
-                // s.setDisplaySize(s.displayWidth * this.mapScale, s.displayHeight * this.mapScale);
-                // s.x = s.x * this.mapScale;
-                // s.y = s.y * this.mapScale;
-                s.setDepth(100);
-                s.name = data.Name;
-                console.debug(`\t${i}/${this.mapObjectLayers.playerSpawns.length}: ${s.name}`);
-                i++;
-            });
+        if (this.map.getObjectLayer('portals').objects.length) {
+            this.spawns = new SpawnLayer(this, this.map.getObjectLayer('playerSpawns').objects);
         } else {
             console.warn(`⚠ No player spawn points found on this map!`);
         }
 
         // Player
-        const spawnPoint = this.mapObjectLayers.playerSpawns.find(
-            x => x.name === this.spawnAt
+        const spawnPoint = this.spawns.gameObjects.find(
+            x => x.data.get('Name') === this.spawnAt
         );
         console.debug(`🤺 Spawning player at ${this.spawnAt} spawn point.`)
         this.player = new Player(
             this,
             spawnPoint.x,
-            spawnPoint.y,
+            spawnPoint.y + spawnPoint.height,
             'dwarf'
         );
-        this.player.spawning = true;
-        this.player.teleporting = true;
         this.player.setDepth(10);
 
         // Collision
@@ -202,30 +166,26 @@ export default abstract class GameScene extends Phaser.Scene {
         const start = this.mapTileLayers[this.floorLayer].tileset[0].firstgid;
         const end = start + this.mapTileLayers[this.floorLayer].tileset[0].total;
         this.map.setCollisionBetween(start, end, true, true, this.floorLayer);
-        // this.mapObjectLayers.floor = this.map.createFromObjects('floor', 'floor', {
-        //     x: 0,
-        //     y: 0,
-        //     key: 'util-tiles',
-        // });
-        // this.mapObjectLayers.floor.forEach(f => {
-        //     f.setDisplaySize(f.displayWidth * mapScale, f.displayHeight * mapScale);
-        //     f.x = 0;
-        //     f.y = 0;
-        // })
-        // this.physics.world.addCollider(this.player, this.mapObjectLayers.floor)
-        // this.physics.world.enable(this.mapObjectLayers.floor);
 
         // Camera
-        console.debug(`📷 Configuring camera.`)
-        const bounds = this.mapTileLayers[this.cameraBoundsLayer].getBounds();
         this.cameras.main.startFollow(this.player);
-        this.cameras.main.setBounds(bounds.x, bounds.y, bounds.width, bounds.height,);
+        if (this.map.getObjectLayer('cameraBounds')) {
+            const bounds = this.map.getObjectLayer('cameraBounds').objects[0];
+            console.debug(`📷 Configuring camera (${bounds.x}, ${bounds.y}, ${bounds.width}, ${bounds.height}).`)
+            this.cameras.main.setBounds(bounds.x, bounds.y, bounds.width, bounds.height,);
+        } else {
+            console.error(`Map has no camera bounds!`)
+        }
 
         // Dialog triggers
         console.debug(`🔫🗣 Initializing dialogue triggers... ${this.scene.key}`);
-        this.dialogueScene = new DialogueScene(this.scene.key);
-        this.triggers = new TriggerLayer(this, this.map.getObjectLayer('triggers').objects);
-        this.scene.get('GameWorldScene').events.on('unpause', () => this.scene.resume(this.scene.key));
+        if (this.map.getObjectLayer('triggers')) {
+            this.dialogueScene = new DialogueScene(this.scene.key);
+            this.triggers = new TriggerLayer(this, this.map.getObjectLayer('triggers').objects);
+        }
+        this.scene.get('GameWorldScene').events.on('unpause', () => {
+            this.scene.resume(this.scene.key);
+        });
 
         // Hook for scene-specific initialization logic
         this.createHook();
@@ -234,7 +194,8 @@ export default abstract class GameScene extends Phaser.Scene {
     update () {
         // Player
         this.player.update();
-        this.triggers.update();
+        if (this.triggers) this.triggers.update();
+        this.portals.update();
 
         // Dev HUD
         this.events.emit(
@@ -243,53 +204,27 @@ export default abstract class GameScene extends Phaser.Scene {
                 pX: this.player.x,
                 pY: this.player.y,
                 pSpawning: this.player.spawning,
+                pTeleporting: this.player.teleporting,
             }
         );
-
-        // Portals
-        if (this.mapObjectLayers.portals) {
-            this.mapObjectLayers.portals.forEach(p => {
-                if (Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), p.getBounds())) {
-                    if (this.player.canTeleport()) {
-                        this.takePortal(p);
-                    }
-                } else {
-                    if (this.player.teleporting) {
-                        this.player.teleporting = false;
-                    }
-                    if (this.player.spawning) {
-                        this.player.spawning = false;
-                    }
-                }
-            });
-        }
     }
 
-    takePortal (portal: Phaser.GameObjects.Sprite) {
-        this.player.teleporting = true;
-        const data = getObjectCustomProps<PortalData>(portal.data);
-        const destination = data.Destination;
-        console.log(`Teleport to ${destination} ${data.OnTouch ? 'Now' : 'on Interaction'}.`);
-        const map: {[key: string]: any} = {
-            'tavern': 'TavernScene',
-            'tavern-way': 'TavernWayScene',
-            'fork': 'ForkScene',
-        }
-        this.scene.get('GameWorldScene').events.emit('teleport', map[destination]);
-    }
-
-    triggerDialogue () {
+    triggerDialogue (script: string) {
         if (!this.dialogActive) {
-            console.log(
-                `Trigger Dialogue: DialogueScene`,
-                this.scene.get(`DialogueScene`),
-                this.dialogueScene,
-                this
-            );
             this.dialogActive = true;
             this.scene.launch(`DialogueScene`);
             this.scene.pause(this.scene.key);
         }
+    }
+
+    getGameWidth (): number {
+        const w = this.sys.game.config.width;
+        return typeof w === 'string' ? parseInt(w) : w;
+    }
+
+    getGameHeight () {
+        const h = this.sys.game.config.height;
+        return typeof h === 'string' ? parseInt(h) : h;
     }
     
 }

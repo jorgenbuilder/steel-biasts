@@ -6,7 +6,6 @@ import GameLevelScene from 'scenes/GameLevelScene';
 export default class ForkScene extends GameLevelScene {
 
     protected floorLayer = 'forkFloor';
-    protected cameraBoundsLayer = 'forkCameraBounds';
 
     protected mapConf = {
         asset: Map,
@@ -19,10 +18,9 @@ export default class ForkScene extends GameLevelScene {
     protected mapTileLayersConf = [
         {key: 'forkBackground',    tileSet: 'level', visible: true,    depth: 1,},
         {key: 'forkFloor',         tileSet: 'level', visible: true,    depth: 5,},
-        {key: 'forkCameraBounds',  tileSet: 'util', visible: false,   depth: 100,},
     ]
 
-    protected spawnAt = 'tavern-way';
+    public spawnAt = 'tavern-way';
 
     constructor () {
         super('ForkScene');

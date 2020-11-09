@@ -12,7 +12,6 @@ import GameLevelScene from 'scenes/GameLevelScene';
 export default class TavernWayScene extends GameLevelScene {
 
     protected floorLayer = 'tavernWayFloor';
-    protected cameraBoundsLayer = 'tavernWayCameraBounds';
 
     protected mapConf = {
         asset: Map,
@@ -36,9 +35,8 @@ export default class TavernWayScene extends GameLevelScene {
         {key: 'tavernWayFloor',          tileSet: 'level',   visible: true,    depth: 5,},
         {key: 'tavernWayForeground',     tileSet: 'props2',  visible: true,    depth: 15,},
         {key: 'tavernWayGroundClutter',  tileSet: 'level',   visible: true,    depth: 11,},
-        {key: 'tavernWayCameraBounds',   tileSet: 'util',    visible: false,   depth: 100,},
     ]
-    protected spawnAt = 'tavern';
+    public spawnAt = 'tavern';
 
     constructor () {
         super('TavernWayScene');
