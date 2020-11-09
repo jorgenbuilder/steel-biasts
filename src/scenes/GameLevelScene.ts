@@ -163,11 +163,23 @@ export default abstract class GameScene extends Phaser.Scene {
         this.player.setDepth(10);
 
         // Collision
-        console.debug(`🥊 Adding collision to ${this.floorLayer}.`)
-        this.physics.world.addCollider(this.player, this.mapTileLayers[this.floorLayer]);
-        const start = this.mapTileLayers[this.floorLayer].tileset[0].firstgid;
-        const end = start + this.mapTileLayers[this.floorLayer].tileset[0].total;
-        this.map.setCollisionBetween(start, end, true, true, this.floorLayer);
+        console.debug(`🥊 Adding collision to ${this.floorLayer}.`);
+        const floor: undefined | Phaser.Types.Tilemaps.TiledObject = undefined;
+        // const floor: undefined | Phaser.Types.Tilemaps.TiledObject = this.map.getObjectLayer('floor').objects[0];
+        if (floor) {
+            console.log('Using floor object layer.');
+            const body = this.add.polygon(floor.x, floor.y, floor.polygon, 0x0000FFF, 1)
+            .setOrigin(0)
+            .setVisible(true)
+            .setDepth(100);
+            this.physics.add.staticGroup(body);
+            this.physics.world.addCollider(this.player, body);
+        } else {
+            this.physics.world.addCollider(this.player, this.mapTileLayers[this.floorLayer]);
+            const start = this.mapTileLayers[this.floorLayer].tileset[0].firstgid;
+            const end = start + this.mapTileLayers[this.floorLayer].tileset[0].total;
+            this.map.setCollisionBetween(start, end, true, true, this.floorLayer);
+        }
 
         // Camera
         this.cameras.main.startFollow(this.player);
