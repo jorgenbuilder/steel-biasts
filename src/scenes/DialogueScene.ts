@@ -1,26 +1,54 @@
 export default class DialogueScene extends Phaser.Scene {
 
     private sceneKey: string;
+    private margin: number = 30;
+    private padding: number = 20;
+    private text: Phaser.GameObjects.Text;
+    public script: {
+        'text': string;
+    }[];
 
     constructor (key: string) {
         super(`DialogueScene`);
     }
 
-    preload () {
-        // 
-    }
+    preload () {}
 
     create () {
-        // this.add.text(this.game., 0.5, `Test`, {font: '24px monospace', fill: '#fff'});
-        this.add.rectangle(30, this.game.canvas.height - 30, this.game.canvas.width - 60, 200, 0x0000FF, .25).setOrigin(0, 1)
+        const height = this.getGameHeight();
+        const width = this.getGameWidth();
+        this.add.rectangle(this.margin, height - this.margin, width - 60, 200, 0x0000FF, .75).setOrigin(0, 1);
+        const keys = this.input.keyboard.createCursorKeys();
+        keys.space.on('up', (e: KeyboardEvent) => this.advance());
     }
 
     update () {
-        const keys = this.input.keyboard.createCursorKeys();
-        if (keys.space.isDown) {
-            console.log(this.sceneKey);
-            this.scene.get('GameWorldScene').events.emit('unpause');
-            this.scene.stop(`DialogueScene`);
-        }
+        // const keys = this.input.keyboard.createCursorKeys();
+        // if (keys.space.isDown) {
+        //     this.deactivate();
+        // }
+    }
+
+    advance () {
+        console.log(this.data.get('script'));
+    }
+
+    activate () {
+        console.log(this);
+    }
+
+    deactivate () {
+        this.scene.get('GameWorldScene').events.emit('unpause');
+        this.scene.stop(`DialogueScene`);
+    }
+
+    private getGameWidth (): number {
+        const w = this.sys.game.config.width;
+        return typeof w === 'string' ? parseInt(w) : w;
+    }
+
+    private getGameHeight () {
+        const h = this.sys.game.config.height;
+        return typeof h === 'string' ? parseInt(h) : h;
     }
 }

@@ -1,4 +1,5 @@
 export function getObjectCustomProps<T> (data: Phaser.Data.DataManager): T {
+    console.log(data);
     return tiledPropsToObject(data.getAll());
 }
 
@@ -22,6 +23,6 @@ export interface SpawnData {
 
 export interface TriggerData {
     OnTouch: boolean;
-    IsDialog: boolean;
-    DialogScript: string;
+    IsDialogue: boolean;
+    DialogueScript: string;
 }

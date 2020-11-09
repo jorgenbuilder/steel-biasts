@@ -3,9 +3,6 @@ import { getObjectCustomProps, tiledPropsToObject, TriggerData } from "utils/map
 
 export default class TriggerLayer {
     private scene: GameScene;
-    // private onTouch: boolean;
-    // private isDialog: boolean;
-    // private dialogScript: string;
     private objects: Phaser.Types.Tilemaps.TiledObject[] = [];
     private gameObjects: Phaser.GameObjects.Rectangle[] = [];
 
@@ -14,10 +11,7 @@ export default class TriggerLayer {
 
         objects.forEach(t => {
             this.objects.push(t);
-            const data = tiledPropsToObject<TriggerData>(t.properties);
-            // this.onTouch = data.OnTouch;
-            // this.dialogScript = data.DialogScript;
-            // this.isDialog = data.IsDialog;
+            const data = tiledPropsToObject<TriggerData>(t.properties)
             const object = new Phaser.GameObjects.Rectangle(scene, t.x, t.y, t.width, t.height, 0xffff00, .1);
             object.setDepth(100);
             object.setOrigin(0, 0);
@@ -29,18 +23,17 @@ export default class TriggerLayer {
 
     update () {
         const keys = this.scene.input.keyboard.createCursorKeys();
-        const activate = keys.space.isDown;
         this.gameObjects.forEach(t => {
-            const data = getObjectCustomProps<TriggerData>(t.data);
-            if (data.OnTouch || activate) {
-                if (Phaser.Geom.Intersects.RectangleToRectangle(this.scene.player.getBounds(), t.getBounds())) {
-                    this.triggerDialog()
+            if (Phaser.Geom.Intersects.RectangleToRectangle(this.scene.player.getBounds(), t.getBounds())) {
+                const activate = keys.space.isDown;
+                if (t.data.get('OnTouch') || activate) {
+                    this.triggerDialog(t.data.get('DialogueScript'));
                 }
             }
         });
     }
 
-    triggerDialog () {
-        this.scene.triggerDialogue();    
+    triggerDialog (dialogScript: string) {
+        this.scene.triggerDialogue(dialogScript);    
     }
 }
