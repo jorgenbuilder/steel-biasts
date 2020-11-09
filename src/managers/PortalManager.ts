@@ -25,27 +25,31 @@ export default class PortalLayer {
         this.scene.scene.get(this.scene.scene.key).events.emit('devData', {
             emitter: this.scene.scene.key,
         });
+        const portalCollisions = this.getPortalCollisions();
+        if (portalCollisions.length) {
+            const portal = portalCollisions[0];
+            if (this.scene.player.canTeleport()) {
+                this.takePortal(portal.data);
+            }
+        } else {
+            if (this.scene.player.teleporting) {
+                this.scene.player.teleporting = false;
+            }
+            if (this.scene.player.spawning) {
+                this.scene.player.spawning = false;
+            }
+        }
+    }
+
+    getPortalCollisions () {
+        const portalCollisions: Phaser.GameObjects.Rectangle[] = [];
         for (let i = 0; i < this.gameObjects.length; i++) {
             const p = this.gameObjects[i];
             if (Phaser.Geom.Intersects.RectangleToRectangle(this.scene.player.getBounds(), p.getBounds())) {
-                this.scene.scene.get(this.scene.scene.key).events.emit('devData', {
-                    touchingPortal: true
-                });
-                if (this.scene.player.canTeleport()) {
-                    this.takePortal(p.data);
-                }
-            } else {
-                this.scene.scene.get(this.scene.scene.key).events.emit('devData', {
-                    touchingPortal: false
-                });
-                if (this.scene.player.teleporting) {
-                    this.scene.player.teleporting = false;
-                }
-                if (this.scene.player.spawning) {
-                    this.scene.player.spawning = false;
-                }
+                portalCollisions.push(p);
             }
         }
+        return portalCollisions;
     }
 
     takePortal (portal: Phaser.Data.DataManager) {

@@ -3,7 +3,6 @@ import { Time } from "phaser";
 export interface DevData {
     pX: number;
     pY: number;
-    touchingPortal: boolean;
     pSpawning: boolean;
     pTeleporting: boolean;
     location: string;
@@ -17,7 +16,6 @@ export default class DevHUD extends Phaser.Scene {
     private pY: number = 0;
     private pSpawning: boolean = false;
     private pTeleporting: boolean = false;
-    private touchingPortal: boolean = false;
     private location: string = '';
     private recentEmitters: {
         emitter: string;
@@ -55,7 +53,6 @@ export default class DevHUD extends Phaser.Scene {
         Player Coords: ${Math.floor(this.pX)}, ${Math.floor(this.pY)}
         Player Spawning: ${this.pSpawning}
         Player Teleporting: ${this.pTeleporting}
-        Touching Portal: ${this.touchingPortal}
         Emitters: ${this.recentEmitters.map(x => x.emitter).join(', ')}
         `
     }
