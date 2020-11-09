@@ -101,3 +101,27 @@
 # Level design
 
 - [ ] create elevator
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+
+# Game Persistence
+
+- [ ] firestore death counter
+- [ ] firebase account
+- [ ] firestore current scene (with HP)
+- [ ] firestore global event context
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
