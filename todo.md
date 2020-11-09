@@ -31,7 +31,7 @@
 - [ ] Use a vector game object as a smoother game floor
 - [x] Figure out why spawn and portal objects aren't positioning perfectly=
 - [x] Watch overgrowth talk
-- [ ] 
+- [ ] Fix tempermental teleportation triggers
 - [ ] 
 - [ ] 
 - [ ] 

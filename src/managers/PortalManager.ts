@@ -1,5 +1,5 @@
 import GameScene from "scenes/GameLevelScene";
-import { tiledPropsToObject, PortalData } from "utils/mapProps";
+import { tiledPropsToObject, PortalData } from "helpers/mapProps";
 
 export default class PortalLayer {
     public scene: GameScene;

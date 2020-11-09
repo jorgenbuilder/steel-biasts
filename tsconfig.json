@@ -12,7 +12,8 @@
             "assets/*": ["src/assets/*"],
             "scenes/*": ["src/scenes/*"],
             "sprites/*": ["src/sprites/*"],
-            "utils/*": ["src/utils/*"]
+            "helpers/*": ["src/helpers/*"],
+            "managers/*": ["src/managers/*"]
         }
     },
     "include": ["src/**/*"],

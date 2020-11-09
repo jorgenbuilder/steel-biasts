@@ -42,7 +42,8 @@ module.exports = {
             assets: path.resolve(__dirname, 'src/assets/'),
             scenes: path.resolve(__dirname, 'src/scenes/'),
             sprites: path.resolve(__dirname, 'src/sprites/'),
-            utils: path.resolve(__dirname, 'src/utils/'),
+            helpers: path.resolve(__dirname, 'src/helpers/'),
+            managers: path.resolve(__dirname, 'src/managers/'),
         }
     },
     output: {

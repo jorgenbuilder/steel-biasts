@@ -1,12 +1,11 @@
 import Dwarf from 'assets/dwarf.png';
-import Portal from 'assets/portal.png';
 import Player from "sprites/Player";
 import playerAnimations from 'animations/Player';
 import portalAnimations from 'animations/Portal';
-import TriggerLayer from 'sprites/TriggerManager';
 import DialogueScene from './DialogueScene';
-import PortalLayer from 'sprites/PortalManager';
-import SpawnLayer from 'sprites/SpawnManager';
+import TriggerManager from 'managers/TriggerManager';
+import PortalManager from 'managers/PortalManager';
+import SpawnManager from 'managers/SpawnManager';
 
 export default abstract class GameScene extends Phaser.Scene {
 
@@ -45,14 +44,14 @@ export default abstract class GameScene extends Phaser.Scene {
     }[];
 
     // Portals
-    protected portals: PortalLayer;
+    protected portals: PortalManager;
 
     // Spawns
     public abstract spawnAt: string;
-    protected spawns: SpawnLayer;
+    protected spawns: SpawnManager;
 
     // Triggers
-    protected triggers: TriggerLayer;
+    protected triggers: TriggerManager;
 
     // Dialogue
     public dialogueScene: DialogueScene;
@@ -137,12 +136,12 @@ export default abstract class GameScene extends Phaser.Scene {
 
         // Portals
         console.debug(`🚪 Adding portals.`)
-        this.portals = new PortalLayer(this, this.map.getObjectLayer('portals').objects);
+        this.portals = new PortalManager(this, this.map.getObjectLayer('portals').objects);
 
         // Spawns
         console.debug(`💫 Initializing player spawn points...`);
         if (this.map.getObjectLayer('portals').objects.length) {
-            this.spawns = new SpawnLayer(this, this.map.getObjectLayer('playerSpawns').objects);
+            this.spawns = new SpawnManager(this, this.map.getObjectLayer('playerSpawns').objects);
         } else {
             console.warn(`⚠ No player spawn points found on this map!`);
         }
@@ -181,7 +180,7 @@ export default abstract class GameScene extends Phaser.Scene {
         console.debug(`🔫🗣 Initializing dialogue triggers... ${this.scene.key}`);
         if (this.map.getObjectLayer('triggers')) {
             this.dialogueScene = new DialogueScene(this.scene.key);
-            this.triggers = new TriggerLayer(this, this.map.getObjectLayer('triggers').objects);
+            this.triggers = new TriggerManager(this, this.map.getObjectLayer('triggers').objects);
         }
         this.scene.get('GameWorldScene').events.on('unpause', () => {
             this.scene.resume(this.scene.key);

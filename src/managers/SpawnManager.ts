@@ -1,5 +1,5 @@
 import GameScene from "scenes/GameLevelScene";
-import { tiledPropsToObject, SpawnData } from "utils/mapProps";
+import { tiledPropsToObject, SpawnData } from "helpers/mapProps";
 
 export default class SpawnLayer {
     public scene: GameScene;

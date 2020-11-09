@@ -1,5 +1,5 @@
 import GameScene from "scenes/GameLevelScene";
-import { getObjectCustomProps, tiledPropsToObject, TriggerData } from "utils/mapProps";
+import { getObjectCustomProps, tiledPropsToObject, TriggerData } from "helpers/mapProps";
 
 export default class TriggerLayer {
     private scene: GameScene;
