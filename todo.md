@@ -12,15 +12,43 @@
 - [ ] sprite animations and events tied to dialog events (nice to have)
 - [ ] 
 
+# Movement System
+
+- [ ] Ladders
+- [ ] Acceleration based movement
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+
 # General
 
 - [ ] Use a vector game object as a smoother game floor
 - [x] Figure out why spawn and portal objects aren't positioning perfectly=
-- [ ] Acceleration based movement
 - [x] Watch overgrowth talk
 - [ ] 
 - [ ] 
 - [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+
+# Art
+
+- [ ] Send package to Brett, then to other artists
+- [ ] Post on reddit for art
 - [ ] 
 - [ ] 
 - [ ] 
