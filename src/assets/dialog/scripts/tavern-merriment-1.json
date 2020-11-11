@@ -1,0 +1,29 @@
+[{
+    "speaker": "THRAIN (Welcoming player to the tavern)",
+    "text": "Ye're late! Ye've got some catching up to do!",
+    "art-asset": "thrain",
+    "art-position": "left"
+}, {
+    "speaker": "GUNTRAM",
+    "text": "Bah! Dwarves o' this clan are nae idle late to alehoose merriment.",
+    "art-asset": "guntram",
+    "art-position": "left"
+}, {
+    "speaker": "PLAYER",
+    "text": "..."
+}, {
+    "speaker": "GUNTRAM",
+    "text": "C'mere and 'ave yer place lad...",
+    "art-asset": "guntram",
+    "art-position": "left"
+}, {
+    "speaker": "VOLKER",
+    "text": "...and take Thrains beer! He's much the look of a tree in wind for one so low to the ground!",
+    "art-asset": "volker",
+    "art-position": "left"
+}, {
+    "speaker": "THRAIN (Teasing good naturedly)",
+    "text": "Ohohohoho! So low to the ground that I'm nae above hitting a dwarf with a lute... with a lute!",
+    "art-asset": "thrain",
+    "art-position": "left"
+}]

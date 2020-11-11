@@ -1,4 +1,4 @@
-import DialogueManager, { DialoguePassage } from "managers/DialogueManager";
+import { DialoguePassage } from "managers/DialogueManager";
 
 export default class DialogueScene extends Phaser.Scene {
 
@@ -9,23 +9,35 @@ export default class DialogueScene extends Phaser.Scene {
     // UI Element Refs
     private speakerText: Phaser.GameObjects.Text;
     private dialogueText: Phaser.GameObjects.Text;
+    private art?: Phaser.GameObjects.Image;
 
 
     constructor () {
         super(`DialogueScene`);
     }
 
-    draw () {
-        const h = this.getGameHeight(),
-              w = this.getGameWidth(),
-              x = 0,
-              y = h,
-              m = this.margin,
-              p = this.padding,
-              dH = 200,
-              f = 26;
+    getDimensions () {
+        return {
+            h: this.getGameHeight(),
+            w: this.getGameWidth(),
+            x: 0,
+            y: this.getGameHeight(),
+            m: this.margin,
+            p: this.padding,
+            dH: 200,
+            f: 26
+        }
+    }
 
-        this.add.rectangle(x + m, h - m, w - (2*m), dH, 0x0000FF, .75).setOrigin(0, 1).setStrokeStyle(4, 0xffffff);
+    draw () {
+        const { h, w, x, y, m, p, dH, f } = this.getDimensions();
+
+        // Dialog box
+        this.add.rectangle(x + m, h - m, w - (2*m), dH, 0x0000FF, .75)
+        .setOrigin(0, 1)
+        .setStrokeStyle(4, 0xffffff);
+
+        // Speaker name
         const speakerText = new Phaser.GameObjects.Text(this, x + m + p, h - dH - m + p, ``, {
             wordWrap: {
                 width: w - (2*m + 2*p),
@@ -41,6 +53,8 @@ export default class DialogueScene extends Phaser.Scene {
         .setOrigin(0);
         this.add.existing(speakerText);
         this.speakerText = speakerText;
+        
+        // Passage text
         const dialogueText = new Phaser.GameObjects.Text(this, x + m + p, h - dH + f + p, ``, {
             wordWrap: {
                 width: w - (2*m + 2*p),
@@ -66,6 +80,23 @@ export default class DialogueScene extends Phaser.Scene {
                 this.dialogueText.setText(passage.text.slice(0, i));
             },
         });
+    }
+
+    placeArt (passage: DialoguePassage) {
+        if (this.art) this.art.destroy();
+        if (!passage['art-asset'] || !passage['art-position']) return;
+        const { h, w, m, dH, } = this.getDimensions();
+        const x = passage['art-position'] === 'left' ? m : w - m;
+        const art = new Phaser.GameObjects.Image(this, x, h - m - dH, `${passage['art-asset']}-art`)
+        .setOrigin(passage['art-position'] === 'left' ? 0 : 1, 1)
+        .setScale(.4);
+        this.add.existing(art);
+        this.art = art;
+    }
+
+    renderPassage (passage: DialoguePassage) {
+        this.setText(passage);
+        this.placeArt(passage);
     }
 
     private getGameWidth (): number {

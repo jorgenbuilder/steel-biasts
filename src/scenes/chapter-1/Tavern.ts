@@ -2,8 +2,12 @@ import LevelTiles from 'assets/tilesets/szadi-caves/level.png';
 import UtilTiles from 'assets/tilesets/utils/util.png';
 import Map from 'assets/tilemaps/tavern.json';
 import GameLevelScene from 'scenes/GameLevelScene';
-import Dialogue1 from 'assets/dialog/tavern-merriment-1.json';
-import Dialogue2 from 'assets/dialog/tavern-merriment-2.json';
+import Dialogue1 from 'assets/dialog/scripts/tavern-merriment-1.json';
+import Dialogue2 from 'assets/dialog/scripts/tavern-merriment-2.json';
+import ThrainArt from 'assets/dialog/art/thrain.png';
+import VolkerArt from 'assets/dialog/art/volker.png';
+import SvaliArt from 'assets/dialog/art/svali.png';
+import GuntramArt from 'assets/dialog/art/guntram.png';
 
 export default class TavernScene extends GameLevelScene {
 
@@ -31,7 +35,12 @@ export default class TavernScene extends GameLevelScene {
         super('TavernScene');
     }
 
-    preloadHook () {}
+    preloadHook () {
+        this.load.image('thrain-art', ThrainArt);
+        this.load.image('volker-art', VolkerArt);
+        this.load.image('svali-art', SvaliArt);
+        this.load.image('guntram-art', GuntramArt);
+    }
 
     createHook () {
         this.dialogue.scripts['tavern-merriment-1'] = Dialogue1;
