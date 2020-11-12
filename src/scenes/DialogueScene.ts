@@ -36,7 +36,7 @@ export default class DialogueScene extends Phaser.Scene {
         .setStrokeStyle(/*1, 0xffffff*/);
 
         // Speaker name
-        const speakerText = new Phaser.GameObjects.Text(this, x + m + p, h - dH - m + p, ``, {
+        const speakerText = new Phaser.GameObjects.Text(this, m + p, h - dH - m + p, ``, {
             wordWrap: {
                 width: w - (2*m + 2*p),
             },
@@ -53,7 +53,7 @@ export default class DialogueScene extends Phaser.Scene {
         this.speakerText = speakerText;
         
         // Passage text
-        const dialogueText = new Phaser.GameObjects.Text(this, x + m + p, h - dH + f + p, ``, {
+        const dialogueText = new Phaser.GameObjects.Text(this, m + p, h - dH + f + p, ``, {
             wordWrap: {
                 width: w - (2*m + 2*p),
             },
@@ -86,8 +86,7 @@ export default class DialogueScene extends Phaser.Scene {
         const { h, w, m, dH, } = this.getDimensions();
         const x = passage['art-position'] === 'left' ? m : w - m;
         const art = new Phaser.GameObjects.Image(this, x, h - m - dH, `${passage['art-asset']}-art`)
-        .setOrigin(passage['art-position'] === 'left' ? 0 : 1, 1)
-        .setScale(.4);
+        .setOrigin(passage['art-position'] === 'left' ? 0 : 1, 1);
         this.add.existing(art);
         this.art = art;
     }
