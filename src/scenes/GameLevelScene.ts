@@ -1,4 +1,5 @@
 import Dwarf from 'assets/dwarf.png';
+import PlayerSprite from 'assets/player.png';
 import Player from "sprites/Player";
 import playerAnimations from 'animations/Player';
 import portalAnimations from 'animations/Portal';
@@ -75,9 +76,13 @@ export default abstract class GameScene extends Phaser.Scene {
         });
         
         // Character sprite
-        this.load.spritesheet('dwarf', Dwarf, {
-            frameWidth: 180,
-            frameHeight: 240
+        // this.load.spritesheet('dwarf', Dwarf, {
+        //     frameWidth: 180,
+        //     frameHeight: 240
+        // });
+        this.load.spritesheet('player', PlayerSprite, {
+            frameWidth: 27,
+            frameHeight: 36
         });
 
         // Scene-specific game map
@@ -158,7 +163,7 @@ export default abstract class GameScene extends Phaser.Scene {
             this,
             spawnPoint.x,
             spawnPoint.y + spawnPoint.height,
-            'dwarf'
+            'player'
         );
         this.player.setDepth(10);
 
@@ -183,7 +188,7 @@ export default abstract class GameScene extends Phaser.Scene {
         }
 
         // Camera
-        this.cameras.main.startFollow(this.player);
+        this.cameras.main.startFollow(this.player, true, 1, 1 , 0, 120);
         if (this.map.getObjectLayer('cameraBounds')) {
             const bounds = this.map.getObjectLayer('cameraBounds').objects[0];
             console.debug(`📷 Configuring camera (${bounds.x}, ${bounds.y}, ${bounds.width}, ${bounds.height}).`)
