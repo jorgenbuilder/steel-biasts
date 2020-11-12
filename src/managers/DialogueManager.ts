@@ -5,6 +5,8 @@ import GameScene from "scenes/GameLevelScene";
 export interface DialoguePassage {
     'speaker': string;
     'text': string;
+    'art-asset'?: string;
+    'art-position'?: string;
 };
 
 export default class DialogueManager {
@@ -42,7 +44,7 @@ export default class DialogueManager {
 
         this.passageIndex = 0;
         this.dialogueScene.draw();
-        this.dialogueScene.setText(this.activeScript[this.passageIndex]);
+        this.dialogueScene.renderPassage(this.activeScript[this.passageIndex]);
         this.bindKeys();
     }
 
@@ -60,7 +62,7 @@ export default class DialogueManager {
         if (this.passageIndex >= this.activeScript.length) {
             this.stopDialogue();
         } else {
-            this.dialogueScene.setText(this.activeScript[this.passageIndex]);
+            this.dialogueScene.renderPassage(this.activeScript[this.passageIndex]);
         }
     }
 
