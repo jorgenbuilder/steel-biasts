@@ -12,6 +12,4 @@ Build and serve the game in development mode locally.
 
 ## Deploying
 
-Deploy the game in production mode to Google Cloud Storage.
-
-1. `npm run deploy`
+Game is deployed to Google Cloud Storage using Github actions.
