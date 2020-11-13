@@ -32,7 +32,7 @@ export default class DevHUD extends Phaser.Scene {
     }
 
     create () {
-        this.debugText = this.add.bitmapText(0, 0, 'dbyte', this.text(), 8).setOrigin(0);
+        this.debugText = this.add.bitmapText(0, 0, 'dbyte', this.text()).setOrigin(0);
         this.scene.get('GameWorldScene').events.on('devData', (d: Partial<DevData>) => this.capture(d));
     }
 

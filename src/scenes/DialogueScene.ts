@@ -45,13 +45,13 @@ export default class DialogueScene extends Phaser.Scene {
         .setStrokeStyle(/*1, 0xffffff*/);
 
         // Speaker name
-        const speakerText = new Phaser.GameObjects.BitmapText(this, m + p, h - dH - m + p, 'dbyte', '', 8)
+        const speakerText = new Phaser.GameObjects.BitmapText(this, m + p, h - dH - m + p, 'dbyte', '')
         .setOrigin(0);
         this.add.existing(speakerText);
         this.speakerText = speakerText;
         
         // Passage text
-        const dialogueText = new Phaser.GameObjects.BitmapText(this, m + p, h - dH + f + p, 'dbyte', ``, 8)
+        const dialogueText = new Phaser.GameObjects.BitmapText(this, m + p, h - dH + f + p, 'dbyte', ``)
         .setOrigin(0);
         this.add.existing(dialogueText);
         this.dialogueText = dialogueText;

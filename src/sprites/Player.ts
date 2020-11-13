@@ -36,7 +36,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     controlPlayer () {
         const keys = this.scene.input.keyboard.createCursorKeys();
-        const speed = 500;
+        const speed = 200;
         if (keys.left.isDown) {
             this.setVelocityX(-speed);
             this.direction = 'left';
