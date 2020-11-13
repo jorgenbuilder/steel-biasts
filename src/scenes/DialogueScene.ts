@@ -31,7 +31,7 @@ export default class DialogueScene extends Phaser.Scene {
             w: this.getGameWidth(),
             m: this.margin,
             p: this.padding,
-            dH: h * this.dialogHeight,
+            dH: this.dialogHeight,
             f: 12
         }
     }
