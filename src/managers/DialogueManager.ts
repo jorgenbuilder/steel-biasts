@@ -49,6 +49,7 @@ export default class DialogueManager {
     }
 
     stopDialogue () {
+        // this.dialogueScene.undraw();
         this.scene.scene.stop(`DialogueScene`);
         this.scene.scene.resume(this.scene.scene.key);
         this.scene.player.controllable = true;

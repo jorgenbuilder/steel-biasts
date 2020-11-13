@@ -5,6 +5,7 @@ export default class DialogueScene extends Phaser.Scene {
     // Visual Config
     private margin: number = 30;
     private padding: number = 20;
+    private dialogHeight: number = 200;
 
     // UI Element Refs
     private speakerText: Phaser.GameObjects.Text;
@@ -17,28 +18,28 @@ export default class DialogueScene extends Phaser.Scene {
     }
 
     getDimensions () {
+        const h = this.getGameHeight();
+        const w = this.getGameWidth();
         return {
             h: this.getGameHeight(),
             w: this.getGameWidth(),
-            x: 0,
-            y: this.getGameHeight(),
             m: this.margin,
             p: this.padding,
-            dH: 200,
+            dH: this.dialogHeight,
             f: 26
         }
     }
 
     draw () {
-        const { h, w, x, y, m, p, dH, f } = this.getDimensions();
+        const { h, w, m, p, dH, f } = this.getDimensions();
 
         // Dialog box
-        this.add.rectangle(x + m, h - m, w - (2*m), dH, 0x0000FF, .75)
-        .setOrigin(0, 1)
+        this.add.rectangle(w / 2, h - this.margin - this.dialogHeight / 2, w - (2*m), dH, 0x0000FF, .75)
+        .setOrigin(.5, .5)
         .setStrokeStyle(4, 0xffffff);
 
         // Speaker name
-        const speakerText = new Phaser.GameObjects.Text(this, x + m + p, h - dH - m + p, ``, {
+        const speakerText = new Phaser.GameObjects.Text(this, m + p, h - dH, ``, {
             wordWrap: {
                 width: w - (2*m + 2*p),
             },
@@ -55,7 +56,7 @@ export default class DialogueScene extends Phaser.Scene {
         this.speakerText = speakerText;
         
         // Passage text
-        const dialogueText = new Phaser.GameObjects.Text(this, x + m + p, h - dH + f + p, ``, {
+        const dialogueText = new Phaser.GameObjects.Text(this, m + p, h - dH + f + p, ``, {
             wordWrap: {
                 width: w - (2*m + 2*p),
             },
@@ -67,6 +68,10 @@ export default class DialogueScene extends Phaser.Scene {
         .setOrigin(0);
         this.add.existing(dialogueText);
         this.dialogueText = dialogueText;
+    }
+
+    undraw (callback: () => void) {
+        // this.
     }
 
     setText (passage: DialoguePassage) {

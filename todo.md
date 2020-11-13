@@ -8,7 +8,7 @@
 - [x] modal window (must have)
 - [x] trigger (must have)
 - [x] speaker (must have)
-- [ ] character art (must have)
+- [x] character art (must have)
 - [ ] sprite animations and events tied to dialog events (nice to have)
 - [ ] modal animations
 - [ ] 
