@@ -1,20 +1,26 @@
+import FontDinobyte from 'assets/fonts/dbyte.png';
+import FontDinobyteData from 'assets/fonts/dbyte.fnt';
 import { DialoguePassage } from "managers/DialogueManager";
 
 export default class DialogueScene extends Phaser.Scene {
 
     // Visual Config
-    private margin: number = 30;
-    private padding: number = 20;
-    private dialogHeight: number = 200;
+    private margin: number = 3;
+    private padding: number = 2;
+    private dialogHeight: number = 90;
 
     // UI Element Refs
-    private speakerText: Phaser.GameObjects.Text;
-    private dialogueText: Phaser.GameObjects.Text;
+    private speakerText: Phaser.GameObjects.BitmapText;
+    private dialogueText: Phaser.GameObjects.BitmapText;
     private art?: Phaser.GameObjects.Image;
 
 
     constructor () {
         super(`DialogueScene`);
+    }
+
+    preload () {
+        this.load.bitmapFont('dbyte', FontDinobyte, FontDinobyteData);
     }
 
     getDimensions () {
@@ -25,46 +31,27 @@ export default class DialogueScene extends Phaser.Scene {
             w: this.getGameWidth(),
             m: this.margin,
             p: this.padding,
-            dH: this.dialogHeight,
-            f: 26
+            dH: h * this.dialogHeight,
+            f: 12
         }
     }
 
     draw () {
         const { h, w, m, p, dH, f } = this.getDimensions();
 
-        // Dialog box
-        this.add.rectangle(w / 2, h - this.margin - this.dialogHeight / 2, w - (2*m), dH, 0x0000FF, .75)
+        // Dialogue box
+        this.add.rectangle(w / 2, h - m - dH / 2, w - (2*m), dH, 0x0000FF, .75)
         .setOrigin(.5, .5)
-        .setStrokeStyle(4, 0xffffff);
+        .setStrokeStyle(/*1, 0xffffff*/);
 
         // Speaker name
-        const speakerText = new Phaser.GameObjects.Text(this, m + p, h - dH, ``, {
-            wordWrap: {
-                width: w - (2*m + 2*p),
-            },
-            maxLines: 1,
-            fixedHeight: f,
-            fontSize: `${f}px`,
-            // backgroundColor: 'rgba(0, 0, 0, .1)',
-            stroke: '000000',
-            strokeThickness: 3,
-            fontStyle: 'bold',
-        })
+        const speakerText = new Phaser.GameObjects.BitmapText(this, m + p, h - dH - m + p, 'dbyte', '', 8)
         .setOrigin(0);
         this.add.existing(speakerText);
         this.speakerText = speakerText;
         
         // Passage text
-        const dialogueText = new Phaser.GameObjects.Text(this, m + p, h - dH + f + p, ``, {
-            wordWrap: {
-                width: w - (2*m + 2*p),
-            },
-            stroke: '000',
-            fontSize: '22px',
-            strokeThickness: 2,
-        })
-        .setLineSpacing(10)
+        const dialogueText = new Phaser.GameObjects.BitmapText(this, m + p, h - dH + f + p, 'dbyte', ``, 8)
         .setOrigin(0);
         this.add.existing(dialogueText);
         this.dialogueText = dialogueText;
@@ -93,8 +80,7 @@ export default class DialogueScene extends Phaser.Scene {
         const { h, w, m, dH, } = this.getDimensions();
         const x = passage['art-position'] === 'left' ? m : w - m;
         const art = new Phaser.GameObjects.Image(this, x, h - m - dH, `${passage['art-asset']}-art`)
-        .setOrigin(passage['art-position'] === 'left' ? 0 : 1, 1)
-        .setScale(.4);
+        .setOrigin(passage['art-position'] === 'left' ? 0 : 1, 1);
         this.add.existing(art);
         this.art = art;
     }

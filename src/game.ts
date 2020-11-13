@@ -9,11 +9,14 @@ import GameWorldScene from 'scenes/GameScene';
 const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
     scale: {
-        width: 2560 / 2.5,
-        height: 1440 / 2.5,
+        width: 640,
+        height: 360,
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
         parent: document.querySelector('body'),
+    },
+    render: {
+        pixelArt: true,
     },
     physics: {
         default: 'arcade',
