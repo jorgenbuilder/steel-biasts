@@ -1,3 +1,5 @@
+import FontDinobyte from 'assets/fonts/dbyte.png';
+import FontDinobyteData from 'assets/fonts/dbyte.fnt';
 import { DialoguePassage } from "managers/DialogueManager";
 
 export default class DialogueScene extends Phaser.Scene {
@@ -7,13 +9,17 @@ export default class DialogueScene extends Phaser.Scene {
     private padding: number = 2;
 
     // UI Element Refs
-    private speakerText: Phaser.GameObjects.Text;
-    private dialogueText: Phaser.GameObjects.Text;
+    private speakerText: Phaser.GameObjects.BitmapText;
+    private dialogueText: Phaser.GameObjects.BitmapText;
     private art?: Phaser.GameObjects.Image;
 
 
     constructor () {
         super(`DialogueScene`);
+    }
+
+    preload () {
+        this.load.bitmapFont('dbyte', FontDinobyte, FontDinobyteData);
     }
 
     getDimensions () {
@@ -36,32 +42,13 @@ export default class DialogueScene extends Phaser.Scene {
         .setStrokeStyle(/*1, 0xffffff*/);
 
         // Speaker name
-        const speakerText = new Phaser.GameObjects.Text(this, m + p, h - dH - m + p, ``, {
-            wordWrap: {
-                width: w - (2*m + 2*p),
-            },
-            maxLines: 1,
-            fixedHeight: f,
-            fontSize: `${f}px`,
-            // backgroundColor: 'rgba(0, 0, 0, .1)',
-            stroke: '000000',
-            strokeThickness: 3,
-            fontStyle: 'bold',
-        })
+        const speakerText = new Phaser.GameObjects.BitmapText(this, m + p, h - dH - m + p, 'dbyte', '', 8)
         .setOrigin(0);
         this.add.existing(speakerText);
         this.speakerText = speakerText;
         
         // Passage text
-        const dialogueText = new Phaser.GameObjects.Text(this, m + p, h - dH + f + p, ``, {
-            wordWrap: {
-                width: w - (2*m + 2*p),
-            },
-            stroke: '000',
-            fontSize: '10px',
-            strokeThickness: 1,
-        })
-        .setLineSpacing(p)
+        const dialogueText = new Phaser.GameObjects.BitmapText(this, m + p, h - dH + f + p, 'dbyte', ``, 8)
         .setOrigin(0);
         this.add.existing(dialogueText);
         this.dialogueText = dialogueText;

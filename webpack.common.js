@@ -33,6 +33,12 @@ module.exports = {
                     'file-loader',
                 ],
             },
+            {
+                test: /\.(ttf|xml|fnt|tga)$/,
+                use: [
+                    'file-loader',
+                ],
+            },
         ],
     },
     resolve: {
