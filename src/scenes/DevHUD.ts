@@ -50,12 +50,11 @@ export default class DevHUD extends Phaser.Scene {
 
     text(): string {
         return `Location: ${this.location}
-Player Coords: ${Math.floor(this.pX)}, ${Math.floor(this.pY)}
-Player Spawning: ${this.pSpawning}
-Player Teleporting: ${this.pTeleporting}
-Emitters: ${this.recentEmitters.map(x => x.emitter).join(', ')}
-FPS: ${Math.floor(this.game.loop.actualFps)}
-        `
+        Player Coords: ${Math.floor(this.pX)}, ${Math.floor(this.pY)}
+        Player Spawning: ${this.pSpawning}
+        Player Teleporting: ${this.pTeleporting}
+        Emitters: ${this.recentEmitters.map(x => x.emitter).join(', ')}
+        FPS: ${Math.floor(this.game.loop.actualFps)}`;
     }
 
     updateText(): void {

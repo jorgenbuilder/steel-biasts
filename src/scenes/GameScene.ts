@@ -1,16 +1,22 @@
 import { DevData } from "./DevHUD";
 import GameScene from "./GameLevelScene";
+import TavernMusic from 'assets/music/tavern.ogg';
 
 export default class GameWorldScene extends Phaser.Scene {
 
     private initialScene: string = 'TavernScene';
+    private activeScene: string | undefined;
+
+    public musicTrack: Phaser.Sound.BaseSound;
+    
     constructor () {
         super('GameWorldScene');
     }
 
-    preload () {}
-
-    private activeScene: string | undefined;
+    preload () {
+        // Music
+        this.load.audio('tavern-music', TavernMusic);
+    }
 
     create () {
         this.scene.launch('DevHUD');
@@ -18,6 +24,10 @@ export default class GameWorldScene extends Phaser.Scene {
             this.activateGameScene(destination, origin);
         });
         this.activateGameScene(this.initialScene);
+
+        this.events.on('playSong', (song: string) => this.playSong(song));
+        this.events.on('stopSong', () => this.stopSong());
+        this.events.on('setMusicVolume', (volume: number) => this.setMusicVolume(volume));
     }
     
     activateGameScene (sceneKey: string, previousSceneKey: string = undefined) {
@@ -46,6 +56,30 @@ export default class GameWorldScene extends Phaser.Scene {
     
     unsubscribeDevHUD (scene: string) {
         this.scene.get(scene).events.off('devData');
+    }
+
+    playSong (song: string) {
+        if (this.musicTrack) {
+            if (this.musicTrack.key === song) {
+                this.musicTrack.play();
+                return;
+            }
+            this.musicTrack.stop();
+            this.musicTrack.destroy();
+        }
+        this.musicTrack = this.sound.add(song, {
+            loop: true,
+            volume: .5,
+        });
+        this.musicTrack.play();
+    }
+
+    stopSong () {
+        this.musicTrack.stop();
+    }
+
+    setMusicVolume (volume: number) {
+        console.log(`Set volume: ${volume} (not yet implemented.)`)
     }
 
 }

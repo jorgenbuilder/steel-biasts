@@ -31,11 +31,14 @@ export default class TavernScene extends GameLevelScene {
 
     public disablePortals = true;
 
+    private audioTracks: Phaser.Sound.BaseSound[] = [];
+
     constructor () {
         super('TavernScene');
     }
 
     preloadHook () {
+        // Dialogue art
         this.load.image('thrain-art', ThrainArt);
         this.load.image('volker-art', VolkerArt);
         this.load.image('svali-art', SvaliArt);
@@ -43,8 +46,12 @@ export default class TavernScene extends GameLevelScene {
     }
 
     createHook () {
+        // Dialogue Scripts
         this.dialogue.scripts['tavern-merriment-1'] = Dialogue1;
         this.dialogue.scripts['tavern-merriment-2'] = Dialogue2;
+
+        // Audio tracks
+        this.scene.get('GameWorldScene').events.emit('playSong', 'tavern-music');
     }
     
 }

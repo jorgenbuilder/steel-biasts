@@ -28,13 +28,22 @@ module.exports = {
                 ],
             },
             {
+                // Images
                 test: /\.(png|svg|jpg|gif)$/,
                 use: [
                     'file-loader',
                 ],
             },
             {
+                // Font
                 test: /\.(ttf|xml|fnt|tga)$/,
+                use: [
+                    'file-loader',
+                ],
+            },
+            {
+                // Sound
+                test: /\.(ogg)$/,
                 use: [
                     'file-loader',
                 ],

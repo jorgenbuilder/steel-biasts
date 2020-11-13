@@ -44,6 +44,9 @@ export default class TavernWayScene extends GameLevelScene {
         
     preloadHook () {}
 
-    createHook () {}
+    createHook () {
+        // Audio tracks
+        this.scene.get('GameWorldScene').events.emit('stopSong');
+    }
     
 }
