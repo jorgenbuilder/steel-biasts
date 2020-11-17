@@ -1,6 +1,7 @@
 import { DevData } from "./DevHUD";
 import GameScene from "./GameLevelScene";
 import TavernMusic from 'assets/music/tavern.ogg';
+import BlipAudio from 'assets/sfx/dialogue-blip.ogg';
 
 export default class GameWorldScene extends Phaser.Scene {
 
@@ -16,6 +17,9 @@ export default class GameWorldScene extends Phaser.Scene {
     preload () {
         // Music
         this.load.audio('tavern-music', TavernMusic);
+
+        // SFX
+        this.load.audio('blip', BlipAudio);
     }
 
     create () {

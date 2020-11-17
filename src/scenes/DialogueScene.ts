@@ -1,6 +1,6 @@
 import FontDinobyte from 'assets/fonts/dbyte.png';
 import FontDinobyteData from 'assets/fonts/dbyte.fnt';
-import { DialoguePassage } from "managers/DialogueManager";
+import { DialoguePassage } from 'managers/DialogueManager';
 
 export default class DialogueScene extends Phaser.Scene {
 
@@ -70,6 +70,8 @@ export default class DialogueScene extends Phaser.Scene {
             onUpdate: (tween) => {
                 const i = tween.getValue();
                 this.dialogueText.setText(passage.text.slice(0, i));
+                const blip = this.sound.add('blip');
+                blip.play();
             },
         });
     }
