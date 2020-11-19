@@ -82,7 +82,7 @@ export default abstract class GameScene extends Phaser.Scene {
         // });
         this.load.spritesheet('player', PlayerSprite, {
             frameWidth: 27,
-            frameHeight: 36
+            frameHeight: 45
         });
 
         // Scene-specific game map
