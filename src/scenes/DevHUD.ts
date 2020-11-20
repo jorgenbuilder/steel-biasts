@@ -8,9 +8,12 @@ export interface DevData {
     pTeleporting: boolean;
     location: string;
     emitter: string;
+    escMenu: boolean;
     hovering: boolean;
     buttonX: number;
     buttonY: number;
+    music: boolean;
+    volume: number;
 }
 
 export default class DevHUD extends Phaser.Scene {
@@ -59,6 +62,9 @@ export default class DevHUD extends Phaser.Scene {
         Hovering: ${this.devData.hovering}
         Button X: ${this.devData.buttonX}
         Button Y: ${this.devData.buttonY}
+        Esc Menu: ${this.devData.escMenu}
+        Music (Press ESC): ${this.devData.music}
+        Volume: ${this.devData.volume}
         `.replace(/(  )+/g, '');
     }
 

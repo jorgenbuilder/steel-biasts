@@ -3,12 +3,22 @@ import GameScene from './GameLevelScene';
 import TavernMusic from 'assets/music/tavern.ogg';
 import BlipAudio from 'assets/sfx/dialogue-blip.ogg';
 
+interface GameSettings {
+    volume: number;
+    music: boolean;
+}
+
 export default class GameWorldScene extends Phaser.Scene {
 
     private initialScene: string = 'TavernScene';
     private activeScene: string | undefined;
 
     public musicTrack: Phaser.Sound.BaseSound;
+
+    public gameSettings: GameSettings = {
+        volume: .5,
+        music: false,
+    };
     
     constructor () {
         super('GameWorldScene');
@@ -28,10 +38,12 @@ export default class GameWorldScene extends Phaser.Scene {
             this.activateGameScene(destination, origin);
         });
         this.activateGameScene(this.initialScene);
+        this.scene.launch('EscMenuScene');
 
         this.events.on('playSong', (song: string) => this.playSong(song));
         this.events.on('stopSong', () => this.stopSong());
         this.events.on('setMusicVolume', (volume: number) => this.setMusicVolume(volume));
+        this.events.on('updateGameSettings', (settings: Partial<GameSettings>) => this.gameSettings = Object.assign({}, this.gameSettings, settings));
     }
     
     activateGameScene (sceneKey: string, previousSceneKey: string = undefined) {
@@ -62,20 +74,21 @@ export default class GameWorldScene extends Phaser.Scene {
         this.scene.get(scene).events.off('devData');
     }
 
-    playSong (song: string) {
+    playSong (song?: string) {
         if (this.musicTrack) {
-            if (this.musicTrack.key === song) {
+            if (this.musicTrack.key === song || (!song)) {
                 this.musicTrack.play();
                 return;
             }
             this.musicTrack.stop();
             this.musicTrack.destroy();
         }
+        if (!song) return;
         this.musicTrack = this.sound.add(song, {
             loop: true,
-            volume: .5,
+            volume: this.gameSettings.volume,
         });
-        this.musicTrack.play();
+        if (this.gameSettings.music) this.musicTrack.play();
     }
 
     stopSong () {
@@ -84,6 +97,13 @@ export default class GameWorldScene extends Phaser.Scene {
 
     setMusicVolume (volume: number) {
         console.log(`Set volume: ${volume} (not yet implemented.)`)
+    }
+
+    update () {
+        this.scene.get('GameWorldScene').events.emit('devData', {
+            music: this.gameSettings.music,
+            volume: this.gameSettings.volume,
+        });
     }
 
 }

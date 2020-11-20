@@ -4,6 +4,7 @@ import TavernScene from 'scenes/chapter-1/Tavern';
 import TavernWayScene from 'scenes/chapter-1/TavernWay';
 import DevHUD from 'scenes/DevHUD';
 import DialogueScene from 'scenes/DialogueScene';
+import EscMenuScene from 'scenes/EscMenuScene';
 import GameWorldScene from 'scenes/GameWorldScene';
 
 const config: Phaser.Types.Core.GameConfig = {
@@ -27,6 +28,7 @@ const config: Phaser.Types.Core.GameConfig = {
     },
     scene: [
         GameWorldScene,
+        EscMenuScene,
         TavernScene,
         TavernWayScene,
         ForkScene,
