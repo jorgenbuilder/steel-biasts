@@ -1,6 +1,7 @@
 import FontDinobyte from 'assets/fonts/dbyte.png';
 import FontDinobyteData from 'assets/fonts/dbyte.fnt';
 import { DialoguePassage } from 'managers/DialogueManager';
+import { getGameHeight, getGameWidth } from 'helpers/dimensions';
 
 export default class DialogueScene extends Phaser.Scene {
 
@@ -24,11 +25,11 @@ export default class DialogueScene extends Phaser.Scene {
     }
 
     getDimensions () {
-        const h = this.getGameHeight();
-        const w = this.getGameWidth();
+        const h = getGameHeight(this);
+        const w = getGameWidth(this);
         return {
-            h: this.getGameHeight(),
-            w: this.getGameWidth(),
+            h,
+            w,
             m: this.margin,
             p: this.padding,
             dH: this.dialogHeight,
@@ -90,15 +91,5 @@ export default class DialogueScene extends Phaser.Scene {
     renderPassage (passage: DialoguePassage) {
         this.setText(passage);
         this.placeArt(passage);
-    }
-
-    private getGameWidth (): number {
-        const w = this.sys.game.config.width;
-        return typeof w === 'string' ? parseInt(w) : w;
-    }
-
-    private getGameHeight (): number {
-        const h = this.sys.game.config.height;
-        return typeof h === 'string' ? parseInt(h) : h;
     }
 }
