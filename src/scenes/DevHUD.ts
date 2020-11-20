@@ -8,16 +8,15 @@ export interface DevData {
     pTeleporting: boolean;
     location: string;
     emitter: string;
+    hovering: boolean;
+    buttonX: number;
+    buttonY: number;
 }
 
 export default class DevHUD extends Phaser.Scene {
 
     private debugText: Phaser.GameObjects.BitmapText;
-    private pX: number = 0;
-    private pY: number = 0;
-    private pSpawning: boolean = false;
-    private pTeleporting: boolean = false;
-    private location: string = '';
+    private devData: Partial<DevData> = {}
     private recentEmitters: {
         emitter: string;
         timestamp: number;
@@ -40,21 +39,27 @@ export default class DevHUD extends Phaser.Scene {
         this.recentEmitters = this.recentEmitters.filter(x => Date.now() - x.timestamp < 100);
         if (data.emitter) {
             if (!this.recentEmitters.some(x => x.emitter === data.emitter)) {
-                this.recentEmitters.push({emitter: data.emitter, timestamp: Date.now()}); 
+                this.recentEmitters.push({emitter: data.emitter, timestamp: Date.now()});
+                this.recentEmitters = this.recentEmitters.sort((a, b) => a.emitter > b.emitter ? 1 : -1);
             }
         }
         //@ts-ignore
-        Object.keys(data).forEach(k => this[k] = data[k]);
+        Object.keys(data).forEach(k => this.devData[k] = data[k]);
         this.updateText();
     }
 
     text(): string {
-        return `Location: ${this.location}
-        Player Coords: ${Math.floor(this.pX)}, ${Math.floor(this.pY)}
-        Player Spawning: ${this.pSpawning}
-        Player Teleporting: ${this.pTeleporting}
+        return `
+        Location: ${this.devData.location}
+        Player Coords: ${Math.floor(this.devData.pX)}, ${Math.floor(this.devData.pY)}
+        Player Spawning: ${this.devData.pSpawning}
+        Player Teleporting: ${this.devData.pTeleporting}
         Emitters: ${this.recentEmitters.map(x => x.emitter).join(', ')}
-        FPS: ${Math.floor(this.game.loop.actualFps)}`;
+        FPS: ${Math.floor(this.game.loop.actualFps)}
+        Hovering: ${this.devData.hovering}
+        Button X: ${this.devData.buttonX}
+        Button Y: ${this.devData.buttonY}
+        `.replace(/(  )+/g, '');
     }
 
     updateText(): void {
