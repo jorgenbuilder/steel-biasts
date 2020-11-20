@@ -40,20 +40,24 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         if (keys.left.isDown) {
             this.setVelocityX(-speed);
             this.direction = 'left';
-            this.anims.play('walkleft', true);
+            // this.anims.play('walkleft', true);
+            this.anims.play('stand', true);
         }
         else if (keys.right.isDown) {
             this.setVelocityX(speed);
             this.direction = 'right';
-            this.anims.play('walkright', true);
+            // this.anims.play('walkright', true);
+            this.anims.play('stand', true);
         } else {
             this.setVelocityX(0);
-            this.anims.play(`stand${this.direction}`, true);
+            // this.anims.play(`stand${this.direction}`, true);
+            this.anims.play('stand', true);
         }
 
         if (keys.up.isDown && this.body.blocked.down) {
             this.setVelocityY(-700);
-            this.anims.play(`stand${this.direction}`);
+            // this.anims.play(`stand${this.direction}`);
+            this.anims.play('stand', true);
         }
     }
 
