@@ -1,5 +1,5 @@
-import { DevData } from "./DevHUD";
-import GameScene from "./GameLevelScene";
+import { DevData } from './DevHUD';
+import GameScene from './GameLevelScene';
 import TavernMusic from 'assets/music/tavern.ogg';
 import BlipAudio from 'assets/sfx/dialogue-blip.ogg';
 

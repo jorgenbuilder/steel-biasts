@@ -4,7 +4,7 @@ import TavernScene from 'scenes/chapter-1/Tavern';
 import TavernWayScene from 'scenes/chapter-1/TavernWay';
 import DevHUD from 'scenes/DevHUD';
 import DialogueScene from 'scenes/DialogueScene';
-import GameWorldScene from 'scenes/GameScene';
+import GameWorldScene from 'scenes/GameWorldScene';
 
 const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
